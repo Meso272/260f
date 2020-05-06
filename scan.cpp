@@ -14,12 +14,12 @@ int threshold=256;
 
 void upsweep (int*A,int s,int t){
     if (s==t){
-        return
+        return;
     }
     if (t-s<=threshold){
         for (int i=s;i<t;i++)
             A[t]+=A[i];
-        return
+        return;
     }
     int mid=(s+t)/2;
     cilk_spawn upsweep(A,s,mid);
@@ -78,7 +78,7 @@ int main(int argc,char ** argv){
         std::cout<<"Command error"<<endl;
         exit(1);
     }
-    int n=argv[1];
+    int n=atoi(argv[1]);
     int total_times=1;
     if (argc>=3)
         total_times=atoi(argv[2]);
