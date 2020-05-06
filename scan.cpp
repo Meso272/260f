@@ -11,28 +11,11 @@
 #include <utility>
 //using namespace std;
 int threshold=256;
-int inplace_scan(int *A,int n){
-    if (n<=thershold){
-        int temp=A[0],newtemp;
-
-        A[0]=0;
-
-        for(int i=1;i<n;i++){
-            newtemp=temp;
-            temp=A[i];
-            A[i]=A[i-1]+newtemp;
-        }
-        return A[n-1]+temp;
-    }
-    upsweep(A,0,n-1);
-    int sigma=A[n-1];
-    downsweep(A,0,n-1,0);
-    return sigma;
-}
 
 void upsweep (int*A,int s,int t){
-    if (s==t)
+    if (s==t){
         return
+    }
     if (t-s<=threshold){
         for (int i=s;i<t;i++)
             A[t]+=A[i];
@@ -68,8 +51,29 @@ void downsweep(int *A,int s,int t,int p){
     cilk_sync;
 }
 
+int inplace_scan(int *A,int n){
+    if (n<=threshold){
+        int temp=A[0],newtemp;
 
-int main(int argc,char *[] argv){
+        A[0]=0;
+
+        for(int i=1;i<n;i++){
+            newtemp=temp;
+            temp=A[i];
+            A[i]=A[i-1]+newtemp;
+        }
+        return A[n-1]+temp;
+    }
+    upsweep(A,0,n-1);
+    int sigma=A[n-1];
+    downsweep(A,0,n-1,0);
+    return sigma;
+}
+
+
+
+
+int main(int argc,char ** argv){
     if(argc==1 or argc>4){
         std::cout<<"Command error"<<endl;
         exit(1);
