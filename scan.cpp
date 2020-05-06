@@ -95,7 +95,7 @@ int main(int argc,char ** argv){
     timer t0; t0.start();
     sequence::scan(A,B,n,plus<int>(),0);
     t0.stop();
-    std::cout<<t.get_total()<<endl;
+    std::cout<<t0.get_total()<<endl;
 
     //for (int i=0;i<n;i++)
         //std::cout<<B[i]<<endl;
