@@ -94,6 +94,8 @@ int main(int argc,char ** argv){
     cilk_for(int i=0;i<n;i++) mf[i]=0;
 
     sequence::scan(A,B,n,plus<int>(),0);
+    for (int i=0;i<n;i++)
+        std::cout<<B[i]<<endl;
     double time=0,s=0;
     for(int i=0;i<total_times;i++){
         cilk_for(int j=0;j<n;j++) 
@@ -106,6 +108,7 @@ int main(int argc,char ** argv){
         time+=t.get_total()/double(total_times);
     }
     std::cout<<time<<endl;
+
     cilk_for(int i=0;i<n-1;i++){
         if(B[i]!=A[i+1]){
             std::cout<<i<<" wrong"<<endl;
