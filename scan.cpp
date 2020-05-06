@@ -16,7 +16,7 @@ void upsweep (int*A,int s,int t){
     if (s==t){
         return;
     }
-    if (t-s<=threshold){
+    if (t-s+1<=threshold){
         for (int i=s;i<t;i++)
             A[t]+=A[i];
         return;
@@ -45,9 +45,9 @@ void downsweep(int *A,int s,int t,int p){
         }
         return;
     }
-    int mid=(s+t)/2;
+    int mid=(s+t)/2,temp=A[mid];
     cilk_spawn downsweep(A,s,mid,p);
-    downsweep(A,mid+1,t,p+A[mid]);
+    downsweep(A,mid+1,t,p+temp);
     cilk_sync;
 }
 
