@@ -12,6 +12,7 @@
 template <class PRED>
 long long inplace_filter(long long *A,long long n,PRED p){
     long long k=(long long)(sqrt(n));
+    std::cout<<k<<std::endl;
     long long packstart=0;
     long long *B=new long long[k];
     long long start=0;
@@ -25,6 +26,8 @@ long long inplace_filter(long long *A,long long n,PRED p){
         packstart+=m;
         start+=k;
     }
+    std::cout<<start<<std::endl;
+    std::cout<<packstart<<std::endl;
     if(start<n){
         long long length=n-start;
         long long m=sequence::filter(A+start,B,fl,length,p);
