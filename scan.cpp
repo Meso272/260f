@@ -10,9 +10,9 @@
 #include "math.h"
 #include <utility>
 //using namespace std;
-static int threshold=256;
+ int threshold=256;
 
-void upsweep (int*A,int s,int t){
+void myupsweep (int*A,int s,int t){
     if (s==t){
         return;
     }
@@ -22,13 +22,13 @@ void upsweep (int*A,int s,int t){
         return;
     }
     int mid=(s+t)/2;
-    cilk_spawn upsweep(A,s,mid);
-    upsweep(A,mid+1,t);
+    cilk_spawn myupsweep(A,s,mid);
+    myupsweep(A,mid+1,t);
     cilk_sync;
     A[t]+=A[mid];
 }
 
-void downsweep(int *A,int s,int t,int p){
+void mydownsweep(int *A,int s,int t,int p){
     if (s==t){
         A[s]=p;
         return;
@@ -46,12 +46,12 @@ void downsweep(int *A,int s,int t,int p){
         return;
     }
     int mid=(s+t)/2,temp=A[mid];
-    cilk_spawn downsweep(A,s,mid,p);
-    downsweep(A,mid+1,t,p+temp);
+    cilk_spawn mydownsweep(A,s,mid,p);
+    mydownsweep(A,mid+1,t,p+temp);
     cilk_sync;
 }
 
-int inplace_scan(int *A,int n){
+int my_inplace_scan(int *A,int n){
     if (n<=threshold){
         int temp=A[0],newtemp;
 
@@ -64,9 +64,9 @@ int inplace_scan(int *A,int n){
         }
         return A[n-1]+temp;
     }
-    upsweep(A,0,n-1);
+    myupsweep(A,0,n-1);
     int sigma=A[n-1];
-    downsweep(A,0,n-1,0);
+    mydownsweep(A,0,n-1,0);
     return sigma;
 }
 
@@ -106,7 +106,7 @@ int main(int argc,char ** argv){
        
         cilk_for(int j=0;j<n;j++) mf[j]=0;
         timer t; t.start();
-        s=inplace_scan(A,n);
+        s=my_inplace_scan(A,n);
         t.stop();
         time+=t.get_total()/double(total_times);
     }
@@ -114,7 +114,7 @@ int main(int argc,char ** argv){
 
     cilk_for(int i=0;i<n;i++){
         if(B[i]!=A[i]){
-            std::cout<<i<<" wrong"<<std::endl;
+            //std::cout<<i<<" wrong"<<std::endl;
             //break;
         }
     }
