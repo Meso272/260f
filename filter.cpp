@@ -30,6 +30,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
     std::cout<<packstart<<std::endl;
     if(start<n){
         long long length=n-start;
+        std::cout<<length<<std::endl;
         long long m=sequence::filter(A+start,B,fl,length,p);
          std::cout<<m<<std::endl;
         parallel_for(long long j=0;j<m;j++){
