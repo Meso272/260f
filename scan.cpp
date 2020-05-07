@@ -1,12 +1,12 @@
 #include <iostream>
 #include <cstdio>
 #include <stdlib.h>
-//#include <cilk/cilk.h>
+#include <cilk/cilk.h>
 #include <cilk/cilk_api.h>
 #include "get_time.h"
 #include "sequence.h"
 //#include "parallel.h"
-#include "utils.h"
+//#include "utils.h"
 #include "math.h"
 #include <utility>
 //using namespace std;
