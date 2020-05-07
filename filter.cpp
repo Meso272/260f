@@ -31,6 +31,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
     if(start<n){
         long long length=n-start;
         long long m=sequence::filter(A+start,B,fl,length,p);
+         std::cout<<m<<std::endl;
         parallel_for(long long j=0;j<m;j++){
             A[packstart+j]=B[j];
         }
