@@ -8,6 +8,7 @@
 #include "parallel.h"
 #include "utils.h"
 #include "math.h"
+#pragma pack(1)
 template <class PRED>
 long long inplace_filter(long long *A,long long n,PRED p){
     long long k=(long long)(sqrt(n));
