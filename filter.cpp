@@ -10,7 +10,7 @@
 #include "math.h"
 template <class PRED>
 long long inplace_filter(long long *A,long long n,PRED p){
-    long long k=long long(sqrt(n));
+    long long k=(long long)(sqrt(n));
     long long packstart=0;
     long long *B=new long long[k];
     long long start=0;
@@ -40,7 +40,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
 }
 
 int main(int argc,char ** argv){
-    if(argc==1 or argc>4){
+    if(argc==1 or argc>3){
         std::cout<<"Command error"<<std::endl;
         exit(1);
     }
@@ -48,8 +48,8 @@ int main(int argc,char ** argv){
     int total_times=1;
     if (argc>=3)
         total_times=atoi(argv[2]);
-    if (argc==4)
-        threshold=atoi(argv[3]);
+    //if (argc==4)
+      //  threshold=atoi(argv[3]);
     long long * A=new long long[n];
     long long* B=new long long[n];
     int *mf=new int[n];
@@ -74,7 +74,7 @@ int main(int argc,char ** argv){
        
         cilk_for(long long j=0;j<n;j++) mf[j]=0;
         timer t; t.start();
-        m1=my_inplace_scan(A,n,p);
+        m1=inplace_filter(A,n,p);
         t.stop();
         time+=t.get_total()/double(total_times);
     }
