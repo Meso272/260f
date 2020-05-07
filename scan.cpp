@@ -4,9 +4,9 @@
 #include <cilk/cilk.h>
 #include <cilk/cilk_api.h>
 #include "get_time.h"
-//#include "sequence.h"
-//#include "parallel.h"
-//#include "utils.h"
+#include "sequence.h"
+#include "parallel.h"
+#include "utils.h"
 #include "math.h"
 #include <utility>
 //using namespace std;
@@ -87,13 +87,13 @@ int main(int argc,char ** argv){
     int * A=new int[n];
     int* B=new int[n];
     int *mf=new int[n];
-    cilk_for(int i=0;i<n;i++) {
+    parallel_for(int i=0;i<n;i++) {
         A[i]=i;
         B[i]=0;
     }
-    cilk_for(int i=0;i<n;i++) mf[i]=0;
+    parallel_for(int i=0;i<n;i++) mf[i]=0;
     timer t0; t0.start();
-    //sequence::scan(A,B,n,plus<int>(),0);
+    sequence::scan(A,B,n,plus<int>(),0);
     t0.stop();
     std::cout<<t0.get_total()<<std::endl;
 
@@ -101,10 +101,10 @@ int main(int argc,char ** argv){
         //std::cout<<B[i]<<endl;
     double time=0,s=0;
     for(int i=0;i<total_times;i++){
-        cilk_for(int j=0;j<n;j++) 
+        parallel_for(int j=0;j<n;j++) 
             A[j]=j;
        
-        cilk_for(int j=0;j<n;j++) mf[j]=0;
+        parallel_for(int j=0;j<n;j++) mf[j]=0;
         timer t; t.start();
         s=my_inplace_scan(A,n);
         t.stop();
@@ -112,9 +112,9 @@ int main(int argc,char ** argv){
     }
     std::cout<<time<<std::endl;
 
-    cilk_for(int i=0;i<n;i++){
+    parallel_for(int i=0;i<n;i++){
         if(B[i]!=A[i]){
-            //std::cout<<i<<" wrong"<<std::endl;
+            std::cout<<i<<" wrong"<<std::endl;
             //break;
         }
     }
