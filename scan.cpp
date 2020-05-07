@@ -4,7 +4,7 @@
 #include <cilk/cilk.h>
 #include <cilk/cilk_api.h>
 #include "get_time.h"
-#include "sequence.h"
+//#include "sequence.h"
 //#include "parallel.h"
 //#include "utils.h"
 #include "math.h"
@@ -94,7 +94,7 @@ int main(int argc,char ** argv){
     }
     cilk_for(int i=0;i<n;i++) mf[i]=0;
     timer t0; t0.start();
-    sequence::scan(A,B,n,plus<int>(),0);
+    //sequence::scan(A,B,n,plus<int>(),0);
     t0.stop();
     std::cout<<t0.get_total()<<endl;
 
