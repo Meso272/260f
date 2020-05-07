@@ -19,7 +19,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
     bool *fl=new bool[k];
     while(n-start>=k){
        
-        long long m=sequence::filterSerial(A+start,B,k,p);
+        long long m=sequence::filter(A+start,B,fl,k,p);
         cilk_for(long long j=0;j<m;j++){
             A[packstart+j]=B[j];
         }
@@ -31,7 +31,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
     if(start<n){
         long long length=n-start;
         //std::cout<<length<<std::endl;
-        long long m=sequence::filterSerial(A+start,B,length,p);
+        long long m=sequence::filter(A+start,B,fl,length,p);
          //std::cout<<m<<std::endl;
         cilk_for(long long j=0;j<m;j++){
             A[packstart+j]=B[j];
