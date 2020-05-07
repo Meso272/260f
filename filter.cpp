@@ -5,14 +5,14 @@
 #include <cilk/cilk_api.h>
 #include "get_time.h"
 #include "sequence.h"
-#include "parallel.h"
-#include "utils.h"
+//#include "parallel.h"
+//#include "utils.h"
 #include "math.h"
 #pragma pack(1)
 template <class PRED>
 long long inplace_filter(long long *A,long long n,PRED p){
     long long k=(long long)(sqrt(n));
-    std::cout<<k<<std::endl;
+    //std::cout<<k<<std::endl;
     long long packstart=0;
     long long *B=new long long[k];
     long long start=0;
@@ -20,7 +20,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
     while(n-start>=k){
        
         long long m=sequence::filter(A+start,B,fl,k,p);
-        parallel_for(long long j=0;j<m;j++){
+        cilk_for(long long j=0;j<m;j++){
             A[packstart+j]=B[j];
         }
         packstart+=m;
@@ -33,7 +33,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
         //std::cout<<length<<std::endl;
         long long m=sequence::filter(A+start,B,fl,length,p);
          //std::cout<<m<<std::endl;
-        parallel_for(long long j=0;j<m;j++){
+        cilk_for(long long j=0;j<m;j++){
             A[packstart+j]=B[j];
         }
         packstart+=m;
@@ -89,7 +89,7 @@ int main(int argc,char ** argv){
         std::cout<<"wrong"<<std::endl;
     }
     else{
-         parallel_for(long long i=0;i<m0;i++){
+         cilk_for(long long i=0;i<m0;i++){
          if(B[i]!=A[i]){
             std::cout<<i<<" wrong"<<std::endl;
             //break;
