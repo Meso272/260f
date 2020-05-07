@@ -10,54 +10,55 @@
 #include "math.h"
 #include <utility>
 //using namespace std;
+
  int threshold=256;
 
-void myupsweep (int*A,int s,int t){
+void myupsweep (long long *A,long long  s,long long t){
     if (s==t){
         return;
     }
     if (t-s+1<=threshold){
-        for (int i=s;i<t;i++)
+        for (long long i=s;i<t;i++)
             A[t]+=A[i];
         return;
     }
-    int mid=(s+t)/2;
+    long long mid=(s+t)/2;
     cilk_spawn myupsweep(A,s,mid);
     myupsweep(A,mid+1,t);
     cilk_sync;
     A[t]+=A[mid];
 }
 
-void mydownsweep(int *A,int s,int t,int p){
+void mydownsweep(long long *A,long long s,long long t,long long p){
     if (s==t){
         A[s]=p;
         return;
     }
     if (t-s<=threshold){
-        int temp=A[s],newtemp;
+        long long temp=A[s],newtemp;
 
         A[s]=p;
 
-        for(int i=s+1;i<=t;i++){
+        for(long long i=s+1;i<=t;i++){
             newtemp=temp;
             temp=A[i];
             A[i]=A[i-1]+newtemp;
         }
         return;
     }
-    int mid=(s+t)/2,temp=A[mid];
+    long long mid=(s+t)/2,temp=A[mid];
     cilk_spawn mydownsweep(A,s,mid,p);
     mydownsweep(A,mid+1,t,p+temp);
     cilk_sync;
 }
 
-int my_inplace_scan(int *A,int n){
+long long my_inplace_scan(long long *A,long long n){
     if (n<=threshold){
-        int temp=A[0],newtemp;
+        long long temp=A[0],newtemp;
 
         A[0]=0;
 
-        for(int i=1;i<n;i++){
+        for(long long i=1;i<n;i++){
             newtemp=temp;
             temp=A[i];
             A[i]=A[i-1]+newtemp;
@@ -65,7 +66,7 @@ int my_inplace_scan(int *A,int n){
         return A[n-1]+temp;
     }
     myupsweep(A,0,n-1);
-    int sigma=A[n-1];
+    long long sigma=A[n-1];
     mydownsweep(A,0,n-1,0);
     return sigma;
 }
@@ -78,20 +79,20 @@ int main(int argc,char ** argv){
         std::cout<<"Command error"<<std::endl;
         exit(1);
     }
-    int n=atoi(argv[1]);
+    long long n=atoi(argv[1]);
     int total_times=1;
     if (argc>=3)
         total_times=atoi(argv[2]);
     if (argc==4)
         threshold=atoi(argv[3]);
-    int * A=new int[n];
-    int* B=new int[n];
+    long long * A=new long long[n];
+    long long* B=new long long[n];
     int *mf=new int[n];
-    cilk_for(int i=0;i<n;i++) {
+    cilk_for(long long i=0;i<n;i++) {
         A[i]=i;
         B[i]=0;
     }
-    cilk_for(int i=0;i<n;i++) mf[i]=0;
+    cilk_for(long long i=0;i<n;i++) mf[i]=0;
     //timer t0; t0.start();
     //sequence::scan(A,B,n,plus<int>(),0);
     //t0.stop();
@@ -99,12 +100,13 @@ int main(int argc,char ** argv){
 
     //for (int i=0;i<n;i++)
         //std::cout<<B[i]<<endl;
-    double time=0,s=0;
+    double time=0;
+    long long s=0;
     for(int i=0;i<total_times;i++){
-        cilk_for(int j=0;j<n;j++) 
+        cilk_for(long long j=0;j<n;j++) 
             A[j]=j;
        
-        cilk_for(int j=0;j<n;j++) mf[j]=0;
+        cilk_for(long long j=0;j<n;j++) mf[j]=0;
         timer t; t.start();
         s=my_inplace_scan(A,n);
         t.stop();

@@ -17,13 +17,13 @@
 
 int main(int argc,char ** argv){
    
-    int n=atoi(argv[1]);
+    long long n=atoi(argv[1]);
     int total_times=1;
     if (argc==3)
         total_times=atoi(argv[2]);
     
-    int * A=new int[n];
-    int* B=new int[n];
+    long long * A=new long long[n];
+    long long* B=new long long[n];
     int *mf=new int[n];
     parallel_for(int i=0;i<n;i++) {
         A[i]=i;
