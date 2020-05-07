@@ -11,8 +11,7 @@
 #include <utility>
 //using namespace std;
 static int threshold=256;
-#ifndef PIPSCAN
-#define PIPSCAN
+
 void upsweep (int*A,int s,int t){
     if (s==t){
         return;
@@ -72,7 +71,7 @@ int inplace_scan(int *A,int n){
 }
 
 
-#endif
+
 
 int main(int argc,char ** argv){
     if(argc==1 or argc>4){
