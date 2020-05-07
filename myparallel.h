@@ -41,8 +41,8 @@ static void setWorkers(int n) {
 // openmp
 #elif defined(OPENMP)
 #include <omp.h>
-#define cilk_spawn
-#define cilk_sync
+//#define cilk_spawn
+//#define cilk_sync
 #define parallel_main main
 #define parallel_for _Pragma("omp parallel for") for
 #define parallel_for_1 _Pragma("omp parallel for schedule (static,1)") for
@@ -53,8 +53,8 @@ static void setWorkers(int n) { omp_set_num_threads(n); }
 
 // c++
 #else
-#define cilk_spawn
-#define cilk_sync
+//#define cilk_spawn
+//#define cilk_sync
 #define parallel_main main
 #define parallel_for for
 #define parallel_for_1 for
