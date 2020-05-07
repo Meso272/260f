@@ -20,7 +20,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
     while(n-start>=k){
        
         long long m=sequence::filter(A+start,B,fl,k,p);
-        cilk_for(long long j=0;j<m;j++){
+        for(long long j=0;j<m;j++){
             A[packstart+j]=B[j];
         }
         packstart+=m;
@@ -33,7 +33,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
         //std::cout<<length<<std::endl;
         long long m=sequence::filter(A+start,B,fl,length,p);
          //std::cout<<m<<std::endl;
-        cilk_for(long long j=0;j<m;j++){
+        for(long long j=0;j<m;j++){
             A[packstart+j]=B[j];
         }
         packstart+=m;
