@@ -10,7 +10,7 @@
 #include "math.h"
 #include <utility>
 //using namespace std;
-int threshold=256;
+static int threshold=256;
 #ifndef PIPSCAN
 #define PIPSCAN
 void upsweep (int*A,int s,int t){
