@@ -17,7 +17,7 @@ long long inplace_filter(long long *A,long long n,PRED p){
     long long *B=new long long[k];
     long long start=0;
     bool *fl=new bool[k];
-    for(long long i=0;i<k;i++){
+    while(n-start>=k){
        
         long long m=sequence::filter(A+start,B,fl,k,p);
         parallel_for(long long j=0;j<m;j++){
@@ -26,13 +26,13 @@ long long inplace_filter(long long *A,long long n,PRED p){
         packstart+=m;
         start+=k;
     }
-    std::cout<<start<<std::endl;
-    std::cout<<packstart<<std::endl;
+    //std::cout<<start<<std::endl;
+    //std::cout<<packstart<<std::endl;
     if(start<n){
         long long length=n-start;
-        std::cout<<length<<std::endl;
+        //std::cout<<length<<std::endl;
         long long m=sequence::filter(A+start,B,fl,length,p);
-         std::cout<<m<<std::endl;
+         //std::cout<<m<<std::endl;
         parallel_for(long long j=0;j<m;j++){
             A[packstart+j]=B[j];
         }
