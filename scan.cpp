@@ -76,7 +76,7 @@ int inplace_scan(int *A,int n){
 
 int main(int argc,char ** argv){
     if(argc==1 or argc>4){
-        std::cout<<"Command error"<<endl;
+        std::cout<<"Command error"<<std::endl;
         exit(1);
     }
     int n=atoi(argv[1]);
@@ -96,7 +96,7 @@ int main(int argc,char ** argv){
     timer t0; t0.start();
     //sequence::scan(A,B,n,plus<int>(),0);
     t0.stop();
-    std::cout<<t0.get_total()<<endl;
+    std::cout<<t0.get_total()<<std::endl;
 
     //for (int i=0;i<n;i++)
         //std::cout<<B[i]<<endl;
@@ -111,12 +111,12 @@ int main(int argc,char ** argv){
         t.stop();
         time+=t.get_total()/double(total_times);
     }
-    std::cout<<time<<endl;
+    std::cout<<time<<std::endl;
 
     cilk_for(int i=0;i<n;i++){
         if(B[i]!=A[i]){
-            std::cout<<i<<" wrong"<<endl;
-            break;
+            std::cout<<i<<" wrong"<<std::endl;
+            //break;
         }
     }
     //if (B[n-1]!=s){
