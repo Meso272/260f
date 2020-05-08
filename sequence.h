@@ -637,7 +637,7 @@ namespace sequence {
     intT l = nblocks(n, b);
     b = nblocks(n, l);
     */
-    intT l=512;
+    intT l=2048;
     intT b=nblocks(n,l);
     intT *Sums = newA(intT,l + 1);
     {parallel_for (intT i = 0; i < l; i++) {
