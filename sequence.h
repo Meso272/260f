@@ -627,7 +627,7 @@ namespace sequence {
   }
     
   template <class ET, class intT, class PRED>
-  intT in_place_filter(ET* In, intT n, PRED p) {
+  intT in_place_filter(ET* In, intT n, PRED p,bool recur) {
     
     if (n < _F_BSIZE)
       return filterSerial(In, In, n, p);
@@ -639,13 +639,15 @@ namespace sequence {
       intT s = i * b;
       intT e = min(s + b, n);
       intT k = s;
-      /*
-      for (intT j = s; j < e; j++)
-    if (p(In[j])) In[k++] = In[j];
+      if (recur){Sums[i]=in_place_filter(In+s,e-s,p,false);}
+      else{
+          for (intT j = s; j < e; j++)
+          if (p(In[j])) In[k++] = In[j];
    
-      Sums[i] = k - s;
-       */
-      Sums[i]=in_place_filter(In+s,e-s,p);
+           Sums[i] = k - s;
+        }
+       
+      
     }}
     intT m = plusScan(Sums, Sums, l);
     Sums[l] = m;
