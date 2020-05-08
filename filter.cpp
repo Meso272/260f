@@ -81,7 +81,7 @@ int main(int argc,char ** argv){
        
         cilk_for(long long j=0;j<n;j++) mf[j]=0;
         timer t; t.start();
-        m1=sequence::in_place_filter(A,n,p,false);
+        m1=sequence::in_place_filter(A,n,p,true);
         t.stop();
         time+=t.get_total()/double(total_times);
     }
