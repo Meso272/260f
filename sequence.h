@@ -639,9 +639,13 @@ namespace sequence {
       intT s = i * b;
       intT e = min(s + b, n);
       intT k = s;
+      /*
       for (intT j = s; j < e; j++)
     if (p(In[j])) In[k++] = In[j];
+   
       Sums[i] = k - s;
+       */
+      Sums[i]=in_place_filter(In+s,e-s,p);
     }}
     intT m = plusScan(Sums, Sums, l);
     Sums[l] = m;
