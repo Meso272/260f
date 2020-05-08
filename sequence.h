@@ -604,13 +604,14 @@ namespace sequence {
   void leftmove(ET *A,intT ss, intT ds, intT l){
 
     if (ds+l<=ss){
-        std::cout<<"yello"<<std::endl;
+
         for(intT i=0;i<l;i++){
             A[ds+i]=A[ss+i];
         }
 
     }
     else if (ss-ds>=l+ds-ss){
+        std::cout<<"yello"<<std::endl;
         parallel_for(intT i=0;i<l+ds-ss;i++){
             A[ds+i]=A[ss+i];
         }
@@ -619,6 +620,7 @@ namespace sequence {
         }
     }
     else{
+        std::cout<<"bello"<<std::endl;
         for(intT i=0;i<l+ds-ss;i++){
             A[ds+i]=A[ss+i];
         }
