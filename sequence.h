@@ -605,7 +605,7 @@ namespace sequence {
 
     if (ds+l<=ss){
 
-        parallel_for(intT i=0;i<l;i++){
+        for(intT i=0;i<l;i++){
             A[ds+i]=A[ss+i];
         }
 
