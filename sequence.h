@@ -632,13 +632,15 @@ namespace sequence {
     if (n < _F_BSIZE)
       return filterSerial(In, In, n, p);
 
-    /* 
+     
     intT b = sqrt(n);
     intT l = nblocks(n, b);
     b = nblocks(n, l);
-    */
+    
+    /*
     intT l=4096;
     intT b=nblocks(n,l);
+    */
     intT *Sums = newA(intT,l + 1);
     {parallel_for (intT i = 0; i < l; i++) {
       intT s = i * b;
