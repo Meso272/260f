@@ -644,7 +644,7 @@ namespace sequence {
       intT s = i * b;
       intT e = min(s + b, n);
       intT k = s;
-      if (recur){Sums[i]=in_place_filter(In+s,e-s,p,true);}
+      if (recur){Sums[i]=in_place_filter(In+s,e-s,p,false);}
       else{
           for (intT j = s; j < e; j++)
           if (p(In[j])) In[k++] = In[j];
