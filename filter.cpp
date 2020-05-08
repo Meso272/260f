@@ -67,7 +67,7 @@ int main(int argc,char ** argv){
     cilk_for(long long i=0;i<n;i++) mf[i]=0;
     auto p=[&](int x){return x&3==3;};
     timer t0; t0.start();
-    long long m0=sequence::filter(A,B,n,p);
+    long long m0=sequence::filterf(A,B,n,p);
     long long m1;
     t0.stop();
     std::cout<<t0.get_total()<<std::endl;
@@ -81,7 +81,7 @@ int main(int argc,char ** argv){
        
         cilk_for(long long j=0;j<n;j++) mf[j]=0;
         timer t; t.start();
-        m1=sequence::in_place_filter(A,n,p,true);
+        m1=sequence::in_place_filter(A,n,p,false);
         t.stop();
         time+=t.get_total()/double(total_times);
     }
