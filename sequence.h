@@ -26,7 +26,7 @@
 #include <iostream>
 #include "parallel.h"
 #include "utils.h"
-
+#include "math.h"
 // For fast popcount
 #include <immintrin.h>
 #include <x86intrin.h>
@@ -629,8 +629,8 @@ namespace sequence {
   template <class ET, class intT, class PRED>
   intT in_place_filter(ET* In, intT n, PRED p) {
     
-    if (n < _F_BSIZE;)
-      return filterSerial(In, Out, n, p);
+    if (n < _F_BSIZE)
+      return filterSerial(In, In, n, p);
     intT b = sqrt(n);
     intT l = nblocks(n, b);
     b = nblocks(n, l);
@@ -649,7 +649,7 @@ namespace sequence {
       intT sourcestart=i*b;
       intT deststart=Sums[i];
       intT length=Sums[i+1]-deststart;
-      leftmove(A,sourcestart,deststart,length);
+      leftmove(In,sourcestart,deststart,length);
     }}
     free(Sums);
     return m;
