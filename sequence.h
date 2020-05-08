@@ -631,15 +631,20 @@ namespace sequence {
     
     if (n < _F_BSIZE)
       return filterSerial(In, In, n, p);
+
+    /* 
     intT b = sqrt(n);
     intT l = nblocks(n, b);
     b = nblocks(n, l);
+    */
+    intT l=2;
+    intT b=nblocks(n,l);
     intT *Sums = newA(intT,l + 1);
     {parallel_for (intT i = 0; i < l; i++) {
       intT s = i * b;
       intT e = min(s + b, n);
       intT k = s;
-      if (recur){Sums[i]=in_place_filter(In+s,e-s,p,false);}
+      if (recur){Sums[i]=in_place_filter(In+s,e-s,p,true);}
       else{
           for (intT j = s; j < e; j++)
           if (p(In[j])) In[k++] = In[j];
