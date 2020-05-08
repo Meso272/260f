@@ -604,9 +604,11 @@ namespace sequence {
   void leftmove(ET *A,intT ss, intT ds, intT l){
 
     if (ds+l<=ss){
-        parallel_for(intT i=0;i<l;i++){
+        std::cout<<"yello"<<std::endl;
+        for(intT i=0;i<l;i++){
             A[ds+i]=A[ss+i];
         }
+
     }
     else if (ss-ds>=l+ds-ss){
         parallel_for(intT i=0;i<l+ds-ss;i++){
@@ -658,7 +660,7 @@ namespace sequence {
     }}
     intT m = plusScan(Sums, Sums, l);
     Sums[l] = m;
-    {parallel_for (intT i = 1; i < l; i++) {
+    {for (intT i = 1; i < l; i++) {
       intT sourcestart=i*b;
       intT deststart=Sums[i];
       intT length=Sums[i+1]-deststart;
