@@ -600,5 +600,60 @@ namespace sequence {
     return m;
   }
 
+  template <class ET, class intT>
+  void leftmove(ET *A,intT ss, intT ds, intT l){
+
+    if (ds+l<=ss){
+        parallel_for(intT i=0;i<l;i++){
+            A[ds+i]=A[ss+i];
+        }
+    }
+    else if (ss-ds>=l+ds-ss){
+        parallel_for(intT i=0;i<l+ds-ss;i++){
+            A[ds+i]=A[ss+i];
+        }
+        parallel_for(intT i=l+ds-ss;i<l;i++){
+            A[ds+i]=A[ss+i];
+        }
+    }
+    else{
+        for(intT i=0;i<l+ds-ss;i++){
+            A[ds+i]=A[ss+i];
+        }
+        parallel_for(intT i=l+ds-ss;i<l;i++){
+            A[ds+i]=A[ss+i];
+        }
+    }
+  }
+    
+  template <class ET, class intT, class PRED>
+  intT in_place_filter(ET* In, intT n, PRED p) {
+    
+    if (n < _F_BSIZE;)
+      return filterSerial(In, Out, n, p);
+    intT b = sqrt(n);
+    intT l = nblocks(n, b);
+    b = nblocks(n, l);
+    intT *Sums = newA(intT,l + 1);
+    {parallel_for (intT i = 0; i < l; i++) {
+      intT s = i * b;
+      intT e = min(s + b, n);
+      intT k = s;
+      for (intT j = s; j < e; j++)
+    if (p(In[j])) In[k++] = In[j];
+      Sums[i] = k - s;
+    }}
+    intT m = plusScan(Sums, Sums, l);
+    Sums[l] = m;
+    {for (intT i = 1; i < l; i++) {
+      intT sourcestart=i*b;
+      intT deststart=Sums[i];
+      intT length=Sums[i+1]-deststart;
+      leftmove(A,sourcestart,deststart,length);
+    }}
+    free(Sums);
+    return m;
+  }
+
 }
 #endif // _A_SEQUENCE_INCLUDED
