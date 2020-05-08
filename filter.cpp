@@ -89,6 +89,7 @@ int main(int argc,char ** argv){
     if(m0!=m1){
         std::cout<<"wrong"<<std::endl;
     }
+    /*
     else{
          cilk_for(long long i=0;i<m0;i++){
          if(B[i]!=A[i]){
@@ -98,7 +99,7 @@ int main(int argc,char ** argv){
         }
   
     }
-    
+    */
     delete []A;
     delete []B;
     delete []mf;
