@@ -658,7 +658,7 @@ namespace sequence {
     }}
     intT m = plusScan(Sums, Sums, l);
     Sums[l] = m;
-    {for (intT i = 1; i < l; i++) {
+    {parallel_for (intT i = 1; i < l; i++) {
       intT sourcestart=i*b;
       intT deststart=Sums[i];
       intT length=Sums[i+1]-deststart;
