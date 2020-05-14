@@ -14,13 +14,15 @@
 #include "parallel_hashmap/phmap.h"
 #define max(a,b) ((a) > (b) ? (a) : (b))
 /*
-void PKS(long long * A, unordered_map<long long, long long>H){
-    unordered_map<long long, long long>R;
-    while (!H.empty()){
-        cilk_for(auto &p:H){
+void PKS(long long * A, long long * H, long long n){
+    phmap::parallel_flat_hash_map<long long ,long > R;
+
+    long long rest_swaps=n;
+    while (rest_swaps>0){
+        cilk_for(long long i=0;i<rest_swaps;i++){
             long long i=iter->first;
             long long hi=iter->second;
-            unordered_map<long long, long long>::fiter=R.find(i);
+            parallel_flat_hash_map<long long ,long >::iterator filter=R.find(i);
             if (fiter!=R.end()){
                 long long ri=filter->second;
                 if (ri<i)
@@ -42,17 +44,22 @@ void PKS(long long * A, unordered_map<long long, long long>H){
 
 
         }
+        cilk_for(long long i=0;i<rest_swaps;i++){
+
+        }
+
 
     }
+
 }
 */
 int main(){
-    phmap::parallel_flat_hash_map<int,int> pfhm;
-    for(int i=0;i<=1000000;i++){
+    phmap::parallel_flat_hash_map<long long ,long > R;
+    cilk_for(int i=0;i<=1000000;i++){
         pfhm.insert(make_pair(i,i));
     }
     int sum=0;
-    cilk_for(auto &p:pfhm){
+    for(auto &p:pfhm){
         sum=sum+p.second;
     }
     std::cout<<sum<<std::endl;
