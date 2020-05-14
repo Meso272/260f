@@ -7,6 +7,7 @@
 #include "get_time.h"
 #include "sequence.h"
 #include<utility>
+#include<mutex>
 //#include "parallel.h"
 //#include "utils.h"
 #include "math.h"
