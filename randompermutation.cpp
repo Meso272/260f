@@ -13,6 +13,7 @@
 #include "math.h"
 #include "parallel_hashmap/phmap.h"
 #define max(a,b) ((a) > (b) ? (a) : (b))
+#define NMSP phmap
 #define MTX std::mutex
 #define EXTRAARGS , NMSP::container_internal::hash_default_hash<K>, \
                             NMSP::container_internal::hash_default_eq<K>, \
