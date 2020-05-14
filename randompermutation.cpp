@@ -52,7 +52,7 @@ int main(){
     }
     int sum=0;
     for(auto &p:pfhm){
-        sum=sum+p->second;
+        sum=sum+p.second;
     }
-    std::cout<<sum<<srd::endl;
+    std::cout<<sum<<std::endl;
 }
