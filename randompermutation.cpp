@@ -99,6 +99,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
 
 
         }
+        std::cout<<a<<std::endl;
         R.clear();
        
         auto pred=[&](pair<long long ,long long > x)->bool{return x.first!=-1;};
