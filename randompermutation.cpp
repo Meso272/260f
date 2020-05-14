@@ -32,6 +32,7 @@ int threshold=4096;
 void PKS(long long * A, pair<long long,long long> * H, long long n){
     hash_t R;
     long long size=(long long) (double(n)*prefix_rate);
+    std::cout<<size<<std::endl;
     long long rest_swaps=n;
     pair<long long,long long> *filter_res=new pair<long long,long long> [size];
     if (size<threshold)
@@ -98,6 +99,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         cilk_for(long long j=0;j<failednum;j++){
             sH[j]=filter_res[j];
         }
+        break;
 
     }   
 
