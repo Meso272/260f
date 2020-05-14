@@ -49,7 +49,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         }
         long long start=rest_swaps-size;
         pair<long long ,long long > *sH=H+start;
-        /*
+        
         cilk_for(long long j=0;j<rest_swaps;j++){
             
 
@@ -91,7 +91,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
 
 
         }
-        */
+        
         auto pred=[&](pair<long long ,long long > x)->bool{return x.first==-1;};
         long long failednum=sequence::filterf(sH,filter_res,size,pred);
         rest_swaps=rest_swaps-size+failednum;
@@ -108,7 +108,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
 
 int main(int argc,char ** argv){
     if(argc==1 or argc>4){
-        std::cout<<"Command error"<<std::endl;
+        std::cout<<"Missing arguments!"<<std::endl;
         exit(1);
     }
     long long n=atoi(argv[1]);
