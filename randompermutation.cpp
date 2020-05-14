@@ -13,6 +13,18 @@
 #include "math.h"
 #include "parallel_hashmap/phmap.h"
 #define max(a,b) ((a) > (b) ? (a) : (b))
+#define MTX std::mutex
+#define EXTRAARGS , NMSP::container_internal::hash_default_hash<K>, \
+                            NMSP::container_internal::hash_default_eq<K>, \
+                            std::allocator<std::pair<const K, V>>, 4, MTX
+
+#define MAPNAME phmap::parallel_flat_hash_map
+template <class K, class V>
+using HashT      = MAPNAME<K, V EXTRAARGS>;
+
+using hash_t     = HashT<int64_t, int64_t>;
+using str_hash_t = HashT<const char *, int64_t>;
+
 /*
 void PKS(long long * A, long long * H, long long n){
     phmap::parallel_flat_hash_map<long long ,long > R;
@@ -54,7 +66,7 @@ void PKS(long long * A, long long * H, long long n){
 }
 */
 int main(){
-    phmap::parallel_flat_hash_map<long long ,long long, boost::mutex> pfhm;
+    hash_t pfhm;
     cilk_for(int i=0;i<=1000000;i++){
         pfhm.insert(make_pair(i,i));
     }
