@@ -54,7 +54,7 @@ void PKS(long long * A, long long * H, long long n){
 }
 */
 int main(){
-    phmap::parallel_flat_hash_map<long long ,long > pfhm;
+    phmap::parallel_flat_hash_map<long long ,long long, boost::mutex> pfhm;
     cilk_for(int i=0;i<=1000000;i++){
         pfhm.insert(make_pair(i,i));
     }
