@@ -117,7 +117,7 @@ int main(int argc,char ** argv){
     if (argc==4)
         threshold=atoi(argv[3]);
     long long * A=new long long[n];
-    pair<long long ,long long > H=new pair<long long ,long long >[n];
+    pair<long long ,long long > *H=new pair<long long ,long long >[n];
     int *mf=new int[n];
     
     //cilk_for(long long i=0;i<n;i++) mf[i]=0;
