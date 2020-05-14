@@ -105,6 +105,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
        // break;
 
     }   
+    delete []filter_res;
 
 
     
