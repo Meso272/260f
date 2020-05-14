@@ -12,7 +12,7 @@
 //#include "utils.h"
 #include "math.h"
 #include "parallel_hashmap/phmap.h"
-#define threshold 4096
+int threshold=4096
 #define max(a,b) ((a) > (b) ? (a) : (b))
 #define NMSP phmap
 #define MTX std::mutex
@@ -33,7 +33,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
     hash_t R;
     long long size=(long long) (double(n)*prefix_rate);
     long long rest_swaps=n;
-    pair<long long,long long> *filter_res=new (long long) [size];
+    pair<long long,long long> *filter_res=new pair<long long,long long> [size];
     if (size<threshold)
         size=threshold;
     while (rest_swaps>0){
@@ -117,7 +117,7 @@ int main(int argc,char ** argv){
     if (argc==4)
         threshold=atoi(argv[3]);
     long long * A=new long long[n];
-    pair<long long ,long long > H=new long long[n];
+    pair<long long ,long long > H=new pair<long long ,long long >[n];
     int *mf=new int[n];
     
     //cilk_for(long long i=0;i<n;i++) mf[i]=0;
@@ -129,16 +129,16 @@ int main(int argc,char ** argv){
     //for (int i=0;i<n;i++)
         //std::cout<<B[i]<<endl;
     double time=0;
-    long long s=0;
+    //long long s=0;
     for(int i=0;i<total_times;i++){
-        cilk_for(long long j=0;j<n;i++) {
+        cilk_for(long long j=0;j<n;j++) {
             A[j]=j;
-            H[j]=(j,(j+55)%n);
+            H[j]=make_pair(j,(j+55)%n);
         }
        
         cilk_for(long long j=0;j<n;j++) mf[j]=0;
         timer t; t.start();
-        s=PKS(A,H,n);
+        PKS(A,H,n);
         t.stop();
         time+=t.get_total()/double(total_times);
     }
