@@ -56,7 +56,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         //std::cout<<size<<std::endl;
         pair<long long ,long long > *sH=H+start;
         
-        cilk_for(long long j=size-1;j>=0;j--){
+        cilk_for(long long j=0;j<size;j++){
             
 
             pair<long long ,long long > swp=sH[j];
@@ -85,7 +85,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
 
         }
         int a=0;
-        cilk_for(long long j=size-1;j>=0;j--){
+        cilk_for(long long j=0;j<size;j++){
             pair<long long ,long long > swp=sH[j];
             long long i=swp.first;
             long long hi=swp.second;
