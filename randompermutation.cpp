@@ -52,6 +52,8 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         }
        
         long long start=rest_swaps-size;
+        std::cout<<start<<std::endl;
+        std::cout<<size<<std::endl;
         pair<long long ,long long > *sH=H+start;
         
         cilk_for(long long j=0;j<size;j++){
