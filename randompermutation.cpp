@@ -34,7 +34,8 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
     long long size=(long long) (double(n)*prefix_rate);
     //std::cout<<size<<std::endl;
     long long rest_swaps=n;
-    pair<long long,long long> *filter_res=new pair<long long,long long> [size];
+    long long spacecost=max(size,threshold);
+    pair<long long,long long> *filter_res=new pair<long long,long long> [spacecost];
     if (size<threshold)
         size=threshold;
     while (rest_swaps>0){
