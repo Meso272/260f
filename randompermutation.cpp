@@ -30,17 +30,17 @@ using str_hash_t = HashT<const char *, int64_t>;
 
 
 void PKS(long long * A, pair<long long,long long> * H, long long n){
-    phmap::parallel_flat_hash_map<long long ,long > R;
-    long long size=long long (double(n)*prefix_rate);
+    hash_t R;
+    long long size=(long long) (double(n)*prefix_rate);
     long long rest_swaps=n;
-    pair<long long,long long> *filter_res=new long long [size];
+    pair<long long,long long> *filter_res=new (long long) [size];
     if (size<threshold)
         size=threshold;
     while (rest_swaps>0){
         if(rest_swaps<=threshold){
                 for(long long  i=rest_swaps;i>=0;i--){
                     pair<long long ,long long > swp=H[i];
-                    swap(A[swp.first],A[swp.second])
+                    swap(A[swp.first],A[swp.second]);
                 }
                 break;
         }
@@ -48,7 +48,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
             size=rest_swaps;
         }
         long long start=rest_swaps-size;
-        long long *sH=H+start;
+        pair<long long ,long long > *sH=H+start;
 
         cilk_for(long long j=0;j<rest_swaps;j++){
             
@@ -56,7 +56,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
             pair<long long ,long long > swp=sH[j];
             long long i=swp.first;
             long long hi=swp.second;
-            parallel_flat_hash_map<long long ,long long>::iterator fiter=R.find(i);
+            hash_t::iterator fiter=R.find(i);
             if (fiter!=R.end()){
                 long long ri=fiter->second;
                 if (ri<i)
@@ -82,8 +82,8 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
             pair<long long ,long long > swp=sH[j];
             long long i=swp.first;
             long long hi=swp.second;
-            parallel_flat_hash_map<long long ,long long>::iterator fiter=R.find(i);
-            parallel_flat_hash_map<long long ,long long>::iterator fhiter=R.find(hi);
+            hash_t::iterator fiter=R.find(i);
+            hash_t::iterator fhiter=R.find(hi);
             if(fiter!=R.end() and fiter->second==i and fhiter!=R.end() and fhiter->second==i){
                 swap(A[hi],A[i]);
                 sH[j].first=-1;
