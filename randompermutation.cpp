@@ -99,6 +99,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
 
 
         }
+        if (a>0)
         std::cout<<a<<std::endl;
         auto pred=[&](pair<long long ,long long > x)->bool{return x.first!=-1;};
         long long failednum=sequence::filterf(sH,filter_res,size,pred);
