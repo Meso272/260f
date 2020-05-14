@@ -12,7 +12,7 @@
 //#include "utils.h"
 #include "math.h"
 #include "parallel_hashmap/phmap.h"
-int threshold=4096
+
 #define max(a,b) ((a) > (b) ? (a) : (b))
 #define NMSP phmap
 #define MTX std::mutex
@@ -28,7 +28,7 @@ using HashT      = MAPNAME<K, V EXTRAARGS>;
 using hash_t     = HashT<int64_t, int64_t>;
 using str_hash_t = HashT<const char *, int64_t>;
 
-
+int threshold=4096;
 void PKS(long long * A, pair<long long,long long> * H, long long n){
     hash_t R;
     long long size=(long long) (double(n)*prefix_rate);
