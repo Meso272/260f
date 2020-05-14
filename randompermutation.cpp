@@ -46,8 +46,8 @@ void PKS(long long * A, unordered_map<long long, long long>H){
 }
 */
 int main(){
-    phmap::parallel_flat_hash_map<int,int> pfhm;
-    for(int i=0;i<=1000000;i++){
+    phmap::parallel_flat_hash_map<int,int, std::mutex> pfhm;
+    cilk_for(int i=0;i<=1000000;i++){
         pfhm.insert(make_pair(i,i));
     }
     int sum=0;
