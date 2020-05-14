@@ -38,7 +38,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
     if (size<threshold)
         size=threshold;
     pair<long long,long long> *filter_res=new pair<long long,long long> [size];
-    
+    //cilk_for(int i=0;i<)
     while (rest_swaps>0){
         if(rest_swaps<=threshold){
                 for(long long  i=rest_swaps;i>=0;i--){
@@ -98,6 +98,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         
         auto pred=[&](pair<long long ,long long > x)->bool{return x.first==-1;};
         long long failednum=sequence::filterf(sH,filter_res,size,pred);
+        std::cout<<failednum<<std::endl;
         rest_swaps=rest_swaps-size+failednum;
         cilk_for(long long j=0;j<failednum;j++){
             sH[j]=filter_res[j];
