@@ -692,7 +692,7 @@ namespace sequence {
             intT S=i*b;
             intT D=Sums[i];
             intT L=Sums[i+1]-D;
-            parallel_for(intT j=0;j<L;j++){
+            for(intT j=0;j<L;j++){
                 In[D+j]=In[S+j];
             }
         }
