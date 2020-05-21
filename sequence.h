@@ -635,7 +635,7 @@ namespace sequence {
     if (start+1>=end)
         return start;
     intT mid=(start+end)/2;
-    ET temp=A[mid];
+    ET temp=A[mid+1];
     if(temp>target){
         return binary_search(A,target,start,mid);
     }
