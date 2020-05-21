@@ -688,11 +688,11 @@ namespace sequence {
         
         intT startplace=b*startblock;
         intT endblock=binary_search(Sums,startplace,startblock,l);
-        parallel_for(intT i=startblock;i<=endblock;i++){
+        for(intT i=startblock;i<=endblock;i++){
             intT S=i*b;
             intT D=Sums[i];
             intT L=Sums[i+1]-D;
-            parallel_for(intT j=S;j<L;j++){
+            for(intT j=S;j<L;j++){
                 In[D+j]=In[S+j];
             }
         }
