@@ -604,7 +604,7 @@ namespace sequence {
   void leftmove(ET *A,intT ss, intT ds, intT l){
 
     if (ds+l<=ss){
-
+        if 
         for(intT i=0;i<l;i++){
             A[ds+i]=A[ss+i];
         }
@@ -629,7 +629,20 @@ namespace sequence {
         }
     }
   }
-    
+  template <class ET,class intT>
+  intT binary_search(ET *A, intT &target,intT & start, intT &end){
+    if (start+1>=end)
+        return start;
+    intT mid=(start+end)/2;
+    ET temp=A[mid];
+    if(temp>target){
+        return binary_search(A,target,start,mid);
+    }
+    else{
+        return binary_search(A,target,mid,end);
+    }
+
+  }
   template <class ET, class intT, class PRED>
   intT in_place_filter(ET* In, intT n, PRED p,bool recur) {
     
@@ -662,12 +675,29 @@ namespace sequence {
     }}
     intT m = plusScan(Sums, Sums, l);
     Sums[l] = m;
+    /*
     {for (intT i = 1; i < l; i++) {
       intT sourcestart=i*b;
       intT deststart=Sums[i];
       intT length=Sums[i+1]-deststart;
       leftmove(In,sourcestart,deststart,length);
-    }}
+    }}*/
+    intT startblock=1;
+    while(startblock<l){
+        
+        intT startplace=b*startblock;
+        intT endblock=binary_search(Sums,startplace,startblock,l);
+        parallel_for(intT i=startblock;i<=endblock;i++){
+            intT S=i*b;
+            intT D=Sums[i];
+            intT L=Sums[i+1]-D;
+            parallel_for(intT j=S;j<L;j++){
+                In[D+j]=In[S+j];
+            }
+        }
+        startblock=endblock+1;
+
+    }
     free(Sums);
     return m;
   }
