@@ -599,12 +599,12 @@ namespace sequence {
     free(Sums);
     return m;
   }
-
+/*
   template <class ET, class intT>
   void leftmove(ET *A,intT ss, intT ds, intT l){
 
     if (ds+l<=ss){
-        if 
+        
         for(intT i=0;i<l;i++){
             A[ds+i]=A[ss+i];
         }
@@ -629,6 +629,7 @@ namespace sequence {
         }
     }
   }
+  */
   template <class ET,class intT>
   intT binary_search(ET *A, intT &target,intT & start, intT &end){
     if (start+1>=end)
