@@ -729,18 +729,19 @@ namespace sequence {
       }
 
       if (t-s<=_SCAN_BSIZE){
-          ET temp=A[s],tempsum=p;
+          ET temp=0,tempsum=p;
 
-          A[s]=tempsum;
+          //A[s]=tempsum;
 
-          for(intT i=s+1;i<=t;i++){
+          for(intT i=s;i<=t;i++){
               tempsum+=temp;
               temp=A[i];
               A[i]=tempsum;
           }
           return;
       }
-      ET mid=(s+t)/2,temp=A[mid];
+      intT mid=(s+t)/2
+      ET temp=A[mid];
       cilk_spawn mydownsweep(A,s,mid,p);
       mydownsweep(A,mid+1,t,p+temp);
       cilk_sync;
@@ -748,14 +749,13 @@ namespace sequence {
   template <class ET,class intT>
   ET my_inplace_scan(ET *A,intT n){
       if (n<=_SCAN_BSIZE){
-          ET temp=A[0],newtemp;
+          ET temp=0,tempsum=0;
 
-          A[0]=0;
-
-          for(intT i=1;i<n;i++){
-              newtemp=temp;
+     
+          for(intT i=0;i<n;i++){
+              tempsum+=temp;
               temp=A[i];
-              A[i]=A[i-1]+newtemp;
+              A[i]=tempsum;
           }
           return A[n-1]+temp;
       }
