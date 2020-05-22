@@ -755,10 +755,10 @@ namespace sequence {
           }
           return A[n-1]+temp;
       }
-      myupsweep(A,0,n-1);
+      myupsweep(A,(intT)(0),n-1);
       ET sigma=A[n-1];
-      mydownsweep(A,0,n-1,0);
+      mydownsweep(A,(intT)(0),n-1,(ET)(0));
       return sigma;
-}
+  }
 }
 #endif // _A_SEQUENCE_INCLUDED
