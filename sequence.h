@@ -705,7 +705,7 @@ namespace sequence {
   template <class ET,class intT>
   void myupsweep (ET *A,intT  s,intT t){
       if (s==t){
-        return A[s];
+        return;// A[s];
       }
       ET temp=A[t];
       
