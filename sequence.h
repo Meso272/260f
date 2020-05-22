@@ -754,7 +754,7 @@ namespace sequence {
   }
   template <class ET,class intT>
   ET my_inplace_scan(ET *A,intT n){
-      std::cout<<_SCAN_BSIZE<<endl;
+      //std::cout<<_SCAN_BSIZE<<endl;
       if (n<=_SCAN_BSIZE){
           ET temp=0,tempsum=0;
 
