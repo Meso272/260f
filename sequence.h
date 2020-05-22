@@ -34,7 +34,7 @@
 using namespace std;
 
 #define _BSIZE 2048
-#define _SCAN_LOG_BSIZE 12
+#define _SCAN_LOG_BSIZE 0
 #define _SCAN_BSIZE (1 << _SCAN_LOG_BSIZE)
 
 template <class T>
