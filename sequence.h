@@ -714,7 +714,7 @@ namespace sequence {
           A[t]=temp;
           return temp;
       }
-      intT  mid=(s+t)/2;
+      intT mid=(s+t)/2;
       ET left=cilk_spawn myupsweep(A,s,mid);
       ET right=left+myupsweep(A,mid+1,t);
       cilk_sync;
@@ -728,7 +728,7 @@ namespace sequence {
           return;
       }
 
-      if (t-s+1<=_SCAN_BSIZE){
+      if (t-s<=_SCAN_BSIZE){
           ET temp=0,tempsum=p;
 
           //A[s]=tempsum;
