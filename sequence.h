@@ -708,14 +708,14 @@ namespace sequence {
         return A[s];
       }
       ET temp=A[t];
-      /*
+      
       if (t-s+1<=_SCAN_BSIZE){
           for (intT i=s;i<t;i++)
               temp+=A[i];
           A[t]=temp;
           return temp;
       }
-      */
+      
       intT mid=(s+t)/2;
       ET left=cilk_spawn myupsweep(A,s,mid);
       ET right=myupsweep(A,mid+1,t);
@@ -730,7 +730,7 @@ namespace sequence {
           A[s]=p;
           return;
       }
-      /*
+      
       if (t-s+1<=_SCAN_BSIZE){
           ET temp=0,tempsum=p;
 
@@ -743,7 +743,7 @@ namespace sequence {
           }
           return;
       }
-      */
+      
       intT mid=(s+t)/2;
       ET temp=A[mid];
       cilk_spawn mydownsweep(A,s,mid,p);
@@ -752,7 +752,7 @@ namespace sequence {
   }
   template <class ET,class intT>
   ET my_inplace_scan(ET *A,intT n){
-      /*
+      std::cout<<_SCAN_BSIZE<<endl;
       if (n<=_SCAN_BSIZE){
           ET temp=0,tempsum=0;
 
@@ -764,7 +764,7 @@ namespace sequence {
           }
           return A[n-1]+temp;
       }
-      */
+
       ET sigma=myupsweep(A,(intT)(0),n-1);
      
       mydownsweep(A,(intT)(0),n-1,(ET)(0));
