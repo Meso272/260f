@@ -740,7 +740,7 @@ namespace sequence {
           }
           return;
       }
-      intT mid=(s+t)/2
+      intT mid=(s+t)/2;
       ET temp=A[mid];
       cilk_spawn mydownsweep(A,s,mid,p);
       mydownsweep(A,mid+1,t,p+temp);
