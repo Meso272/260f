@@ -4,15 +4,15 @@
 #include <cilk/cilk.h>
 #include <cilk/cilk_api.h>
 #include "get_time.h"
-//#include "sequence.h"
+#include "sequence.h"
 //#include "myparallel.h"
-//#include "utils.h"
+#include "utils.h"
 #include "math.h"
 #include <utility>
 //using namespace std;
 
  int threshold=256;
-
+/*
 void myupsweep (long long *A,long long  s,long long t){
     if (s==t){
         return;
@@ -71,7 +71,7 @@ long long my_inplace_scan(long long *A,long long n){
     return sigma;
 }
 
-
+*/
 
 
 int main(int argc,char ** argv){
@@ -108,7 +108,7 @@ int main(int argc,char ** argv){
        
         cilk_for(long long j=0;j<n;j++) mf[j]=0;
         timer t; t.start();
-        s=my_inplace_scan(A,n);
+        s=sequence::my_inplace_scan(A,n);
         t.stop();
         time+=t.get_total()/double(total_times);
     }

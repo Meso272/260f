@@ -702,6 +702,63 @@ namespace sequence {
     free(Sums);
     return m;
   }
+  template <class ET,class intT>
+  void myupsweep (ET *A,intT  s,intT t){
+      if (s==t){
+        return;
+      }
+      if (t-s+1<=_SCAN_BSIZE){
+          for (intT i=s;i<t;i++)
+              A[t]+=A[i];
+          return;
+      }
+      ET mid=(s+t)/2;
+      cilk_spawn myupsweep(A,s,mid);
+      myupsweep(A,mid+1,t);
+      cilk_sync;
+      A[t]+=A[mid];
+  } 
+  template <class ET,class intT>
+  void mydownsweep(ET *A,intT s,intT t,ET p){
+      if (s==t){
+          A[s]=p;
+          return;
+      }
+      if (t-s<=_SCAN_BSIZE){
+          ET temp=A[s],newtemp;
 
+          A[s]=p;
+
+          for(intT i=s+1;i<=t;i++){
+              newtemp=temp;
+              temp=A[i];
+              A[i]=A[i-1]+newtemp;
+          }
+          return;
+      }
+      ET mid=(s+t)/2,temp=A[mid];
+      cilk_spawn mydownsweep(A,s,mid,p);
+      mydownsweep(A,mid+1,t,p+temp);
+      cilk_sync;
+  }
+  template <class ET,class intT>
+  ET my_inplace_scan(ET *A,intT n){
+      if (n<=_SCAN_BSIZE){
+          ET temp=A[0],newtemp;
+
+          A[0]=0;
+
+          for(intTg i=1;i<n;i++){
+              newtemp=temp;
+              temp=A[i];
+              A[i]=A[i-1]+newtemp;
+          }
+          return A[n-1]+temp;
+      }
+      myupsweep(A,0,n-1);
+      ET sigma=A[n-1];
+      mydownsweep(A,0,n-1,0);
+      return sigma;
+}
 }
 #endif // _A_SEQUENCE_INCLUDED
