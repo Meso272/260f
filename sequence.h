@@ -748,7 +748,7 @@ namespace sequence {
 
           A[0]=0;
 
-          for(intTg i=1;i<n;i++){
+          for(intT i=1;i<n;i++){
               newtemp=temp;
               temp=A[i];
               A[i]=A[i-1]+newtemp;
