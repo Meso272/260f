@@ -703,22 +703,24 @@ namespace sequence {
     return m;
   }
   template <class ET,class intT>
-  void myupsweep (ET *A,intT  s,intT t){
+  ET myupsweep (ET *A,intT  s,intT t){
       if (s==t){
-        return;
+        return A[s];
       }
       ET temp=A[t];
       if (t-s+1<=_SCAN_BSIZE){
           for (intT i=s;i<t;i++)
               temp+=A[i];
           A[t]=temp;
-          return;
+          return temp;
       }
-      ET mid=(s+t)/2;
-      cilk_spawn myupsweep(A,s,mid);
-      myupsweep(A,mid+1,t);
+      intT  mid=(s+t)/2;
+
+      cilk_spawn ET left=myupsweep(A,s,mid);
+      ET right=left+myupsweep(A,mid+1,t);
       cilk_sync;
-      A[t]+=A[mid];
+      A[t]=right;
+      return right;
   } 
   template <class ET,class intT>
   void mydownsweep(ET *A,intT s,intT t,ET p){
@@ -726,6 +728,7 @@ namespace sequence {
           A[s]=p;
           return;
       }
+
       if (t-s<=_SCAN_BSIZE){
           ET temp=A[s],tempsum=p;
 
@@ -757,8 +760,8 @@ namespace sequence {
           }
           return A[n-1]+temp;
       }
-      myupsweep(A,(intT)(0),n-1);
-      ET sigma=A[n-1];
+      ET sigma=myupsweep(A,(intT)(0),n-1);
+     
       mydownsweep(A,(intT)(0),n-1,(ET)(0));
       return sigma;
   }
