@@ -707,9 +707,11 @@ namespace sequence {
       if (s==t){
         return;
       }
+      ET temp=A[t];
       if (t-s+1<=_SCAN_BSIZE){
           for (intT i=s;i<t;i++)
-              A[t]+=A[i];
+              temp+=A[i];
+          A[t]=temp;
           return;
       }
       ET mid=(s+t)/2;
@@ -725,14 +727,14 @@ namespace sequence {
           return;
       }
       if (t-s<=_SCAN_BSIZE){
-          ET temp=A[s],newtemp;
+          ET temp=A[s],tempsum=p;
 
-          A[s]=p;
+          A[s]=tempsum;
 
           for(intT i=s+1;i<=t;i++){
-              newtemp=temp;
+              tempsum+=temp;
               temp=A[i];
-              A[i]=A[i-1]+newtemp;
+              A[i]=tempsum;
           }
           return;
       }
