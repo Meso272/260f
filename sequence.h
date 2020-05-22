@@ -715,8 +715,7 @@ namespace sequence {
           return temp;
       }
       intT  mid=(s+t)/2;
-      ET left;
-      cilk_spawn left=myupsweep(A,s,mid);
+      ET left=cilk_spawn myupsweep(A,s,mid);
       ET right=left+myupsweep(A,mid+1,t);
       cilk_sync;
       A[t]=right;
