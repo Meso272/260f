@@ -765,8 +765,8 @@ namespace sequence {
           return A[n-1]+temp;
       }
 
-      ET sigma=myupsweep(A,(intT)(0),n-1);
-     
+      myupsweep(A,(intT)(0),n-1);
+      ET sigma=A[n-1];
       mydownsweep(A,(intT)(0),n-1,(ET)(0));
       return sigma;
   }
