@@ -114,7 +114,7 @@ int main(int argc,char ** argv){
     }
     std::cout<<time<<std::endl;
 
-    parallel_for(int i=0;i<n;i++){
+    for(int i=0;i<n;i++){
         if(B[i]!=A[i]){
             std::cout<<i<<" wrong"<<std::endl;
             break;
