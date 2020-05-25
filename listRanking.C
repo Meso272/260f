@@ -35,17 +35,17 @@ struct listRankingStep {
   intT n;
   listRankingStep(bool* _R, node* _nodes, intT _n) : R(_R), nodes(_nodes), n(_n) {}
 
-  bool reserve(intT i, intT loc) {
+  bool reserve(intT i) {
     intT next = nodes[i].next, prev = nodes[i].prev;
-    if(i < next && i < prev) R[loc] = 1; //check if local min
+    if(i < next && i < prev) R[i] = 1; //check if local min
     return 1; }
 
-  bool commit (intT i, intT loc) {
-    if(R[loc] == 1){ //local min 
+  bool commit (intT i) {
+    if(R[i] == 1){ //local min 
       intT next = nodes[i].next, prev = nodes[i].prev;
       if(next != n) nodes[next].prev = prev;
       if(prev != n) nodes[prev].next = next;
-      R[loc] = 0;
+      R[i] = 0;
       return 1; } 
     else return 0; //lost 
   }};
