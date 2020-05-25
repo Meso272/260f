@@ -24,28 +24,27 @@
 #include "utils.h"
 #include <iostream>
 #include "sequence.h"
-#include "speculative_for.h"
+#include "speculative_for2.h"
 #include "listRanking.h"
 using namespace std;
-#include <cilk/cilk.h>
-#include <cilk/cilk_api.h>
+
 struct listRankingStep {
   bool* R;
   node* nodes;
   intT n;
   listRankingStep(bool* _R, node* _nodes, intT _n) : R(_R), nodes(_nodes), n(_n) {}
 
-  bool reserve(intT i) {
+  bool reserve(intT i, intT loc) {
     intT next = nodes[i].next, prev = nodes[i].prev;
-    if(i < next && i < prev) R[i] = 1; //check if local min
+    if(i < next && i < prev) R[loc] = 1; //check if local min
     return 1; }
 
-  bool commit (intT i) {
-    if(R[i] == 1){ //local min 
+  bool commit (intT i, intT loc) {
+    if(R[loc] == 1){ //local min 
       intT next = nodes[i].next, prev = nodes[i].prev;
       if(next != n) nodes[next].prev = prev;
       if(prev != n) nodes[prev].next = next;
-      R[i] = 0;
+      R[loc] = 0;
       return 1; } 
     else return 0; //lost 
   }};
