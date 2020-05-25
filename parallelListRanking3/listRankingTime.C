@@ -26,7 +26,7 @@
 #include "parallel.h"
 #include "IO.h"
 #include "parseCommandLine.h"
-#include "../../randPerm/parallelRandPerm2/randPerm.C"
+#include "../randPerm/parallelRandPerm2/randPerm.C"
 #include "listRanking.h"
 
 using namespace std;
