@@ -27,8 +27,9 @@
 #include <fstream>
 #include <string>
 #include <cstring>
-#include "sequence.h"
 #include "parallel.h"
+
+#include "sequence.h"
 
 namespace benchIO {
   using namespace std;
