@@ -53,8 +53,8 @@ struct randPermStep {
     H(_H), dataCheck(_dataCheck) {}
 
   inline bool reserve(intT i) {
-    reserveLoc(dataCheck[i].second,i);
-    reserveLoc(dataCheck[H[i]].second, i);
+    reserveLoc1(dataCheck[i].second,i);
+    reserveLoc1(dataCheck[H[i]].second, i);
     return 1;
   }
 
@@ -88,7 +88,7 @@ void randPerm(E *A, intT n, intT r) {
     }}
 
   randPermStep<E> rStep(H, dataCheck);
-  speculative_for(rStep, 0, n, (r != -1) ? r : 50, 0);
+  speculative_for1(rStep, 0, n, (r != -1) ? r : 50, 0);
 
   {parallel_for (intT i=0;i<n;i++) A[i] = dataCheck[i].first;}
 
