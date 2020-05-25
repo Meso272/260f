@@ -24,9 +24,9 @@
 #include "utils.h"
 #include "sequence.h"
 
-struct reservation {
+struct reservation1 {
   intT r;
-  reservation() : r(INT_T_MAX) {}
+  reservation1() : r(INT_T_MAX) {}
   void reserve(intT i) { utils::writeMin(&r, i); }
   bool reserved() { return (r < INT_T_MAX);}
   void reset() {r = INT_T_MAX;}
@@ -37,10 +37,10 @@ struct reservation {
   }
 };
 
-inline void reserveLoc(intT& x, intT i) {utils::writeMin(&x,i);}
+inline void reserveLoc1(intT& x, intT i) {utils::writeMin(&x,i);}
 
 template <class S>
-intT speculative_for(S step, intT s, intT e, int granularity, 
+intT speculative_for1(S step, intT s, intT e, int granularity, 
 		     bool hasState=1, int maxTries=-1) {
   if (maxTries < 0) maxTries = 100 + 200*granularity;
   intT maxRoundSize = (e-s)/granularity+1;
