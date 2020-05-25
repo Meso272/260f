@@ -56,3 +56,7 @@ void listRanking(node *A, intT n, intT r = -1) {
   speculative_for(lStep, 0, n, (r != -1) ? r : 100, 0);
   free(R);
 }
+
+int main(){
+    return 0;
+}
