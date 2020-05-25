@@ -26,6 +26,7 @@
 #include "sequence.h"
 #include "speculative_for2.h"
 #include "listRanking.h"
+#include "randPerm.C"
 using namespace std;
 
 struct listRankingStep {
