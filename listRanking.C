@@ -27,7 +27,8 @@
 #include "speculative_for.h"
 #include "listRanking.h"
 using namespace std;
-#define parallel_for cilk_for
+#include <cilk/cilk.h>
+#include <cilk/cilk_api.h>
 struct listRankingStep {
   bool* R;
   node* nodes;

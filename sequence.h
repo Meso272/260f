@@ -27,6 +27,8 @@
 #include "parallel.h"
 #include "utils.h"
 #include "math.h"
+#include <cilk/cilk.h>
+#include <cilk/cilk_api.h>
 // For fast popcount
 #include <immintrin.h>
 #include <x86intrin.h>
@@ -36,7 +38,7 @@ using namespace std;
 #define _BSIZE 2048
 #define _SCAN_LOG_BSIZE 10
 #define _SCAN_BSIZE (1 << _SCAN_LOG_BSIZE)
-
+#define parallel_for cilk_for
 template <class T>
 struct _seq {
   T* A;
