@@ -100,6 +100,9 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
             pair<long long ,long long > swp=sH[j];
             long long i=swp.first;
             long long hi=swp.second;
+            if (i==-1){
+                std::cout<<"caonimama"<<std::endl;
+            }
             hash_t::iterator fiter=R.find(i);
             hash_t::iterator fhiter=R.find(hi);
             if(fiter!=R.end() and fiter->second==i and fhiter!=R.end() and fhiter->second==i){
@@ -160,7 +163,7 @@ int main(int argc,char ** argv){
         cilk_for(long long j=0;j<n;j++) {
             A[j]=j;
             //H[j]=make_pair(j,j+hashI<long long >(j)%(n-j));
-            H[j]=make_pair(j,j);
+
         }
        
         cilk_for(long long j=0;j<n;j++) mf[j]=0;
