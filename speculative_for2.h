@@ -62,7 +62,7 @@ intT speculative_for(S step, intT s, intT e, int granularity,
   intT numberDone = s; // number of iterations done
   intT numberKeep = 0; // number of iterations to carry to next round
   intT totalProcessed = 0; // number done including wasteds tries
-  cout << sizeof(state) << endl;
+  //cout << sizeof(state) << endl;
   
   int prevdone = 0;
 
@@ -74,7 +74,7 @@ intT speculative_for(S step, intT s, intT e, int granularity,
     }
     intT size = min(currentRoundSize, e - numberDone);
     totalProcessed += size;
-	cout << round << ' ' << numberDone << ' ' << numberDone-prevdone << ' ' << totalProcessed << ' ' << size << endl;
+	//cout << round << ' ' << numberDone << ' ' << numberDone-prevdone << ' ' << totalProcessed << ' ' << size << endl;
 
     if (hasState) {
       parallel_for (intT i =0; i < size; i++) {/////////////////
@@ -102,7 +102,7 @@ intT speculative_for(S step, intT s, intT e, int granularity,
 	prevdone = numberDone;
     numberDone += size - numberKeep;
     nextTimeN();
-	cout << round << ' ' << numberDone << ' ' << numberDone-prevdone << ' ' << totalProcessed << endl;
+	//cout << round << ' ' << numberDone << ' ' << numberDone-prevdone << ' ' << totalProcessed << endl;
 
     // adjust round size based on number of failed attempts
     if (float(numberKeep)/float(size) > .2) 
