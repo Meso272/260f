@@ -40,7 +40,9 @@ struct listRankingStep {
   bool reserve(intT i, intT loc) {
     intT next = nodes[i].next, prev = nodes[i].prev;
     if(i < next && i < prev) {
+       if (next!=0)
        nodes[i].next=-next;
+       else
        nodes[i].prev=-prev;
 
     }; //check if local min
@@ -48,7 +50,9 @@ struct listRankingStep {
 
   bool commit (intT i, intT loc) {
     if(nodes[i].next<0 or nodes[i].prev<0){ //local min 
-      intT next = abs(nodes[i].next), prev = abs(nodes[i].prev);
+      intT next = -nodes[i].next, 
+      if (next==0)
+          prev = -nodes[i].prev;
       if(next != n) nodes[next].prev = prev;
       if(prev != n) nodes[prev].next = next;
       //R[loc] = 0;
