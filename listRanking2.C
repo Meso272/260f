@@ -52,8 +52,8 @@ struct listRankingStep {
       if(next != n) nodes[next].prev = prev;
       if(prev != n) nodes[prev].next = next;
       //R[loc] = 0;
-      nodes[i].next=0;
-      nodes[i].prev=0;
+      //nodes[i].next=0;
+      //nodes[i].prev=0;
       return 1; } 
     else return 0; //lost 
   }};
