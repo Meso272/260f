@@ -53,7 +53,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
     if (size<threshold)
         size=threshold;
     pair<long long,long long> *filter_res=new pair<long long,long long> [size];
-    cilk_for(long long  i=0;i<size;i++) filter_res[i]=make_pair(0,0);
+    //cilk_for(long long  i=0;i<size;i++) filter_res[i]=make_pair(0,0);
     while (rest_swaps>0){
         if(rest_swaps<=threshold){
                 for(long long  i=rest_swaps;i>=0;i--){
@@ -155,7 +155,7 @@ int main(int argc,char ** argv){
         threshold=atoi(argv[3]);
     long long * A=new long long[n];
     pair<long long ,long long > *H=new pair<long long ,long long >[n];
-    int *mf=new int[n];
+    //int *mf=new int[n];
     
     //cilk_for(long long i=0;i<n;i++) mf[i]=0;
     //timer t0; t0.start();
@@ -170,12 +170,12 @@ int main(int argc,char ** argv){
     for(int i=0;i<total_times;i++){
         cilk_for(long long j=0;j<n;j++) {
             A[j]=j;
-            //H[j]=make_pair(j,j+hashI<long long >(j)%(n-j));
-            H[j]=make_pair(j,(j+8000)%n);
+            H[j]=make_pair(j,j+hashI<long long >(j)%(n-j));
+            //H[j]=make_pair(j,(j+8000)%n);
 
         }
        
-        cilk_for(long long j=0;j<n;j++) mf[j]=0;
+        //cilk_for(long long j=0;j<n;j++) mf[j]=0;
         timer t; t.start();
         PKS(A,H,n);
         t.stop();
@@ -194,7 +194,7 @@ int main(int argc,char ** argv){
     //}
     delete []A;
     delete []H;
-    delete []mf;
+    //delete []mf;
     return 0;
 
 }
