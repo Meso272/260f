@@ -100,9 +100,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
             pair<long long ,long long > swp=sH[j];
             long long i=swp.first;
             long long hi=swp.second;
-            if (i==-1){
-                std::cout<<"caonimama"<<std::endl;
-            }
+
             hash_t::iterator fiter=R.find(i);
             hash_t::iterator fhiter=R.find(hi);
             if(fiter!=R.end() and fiter->second==i and fhiter!=R.end() and fhiter->second==i){
@@ -117,7 +115,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         R.clear();
        
         auto pred=[&](pair<long long ,long long > x)->bool{return x.first!=-1;};
-        long long failednum=sequence::filterf(sH,filter_res,size,pred);
+        long long failednum=sequence::filter(sH,filter_res,size,pred);
         //std::cout<<failednum<<std::endl;
         rest_swaps=rest_swaps-size+failednum;
         cilk_for(long long j=0;j<failednum;j++){
