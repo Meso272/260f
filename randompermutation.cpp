@@ -63,8 +63,8 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         }
        
         long long start=rest_swaps-size;
-        std::cout<<start<<std::endl;
-        std::cout<<size<<std::endl;
+        //std::cout<<start<<std::endl;
+        //std::cout<<size<<std::endl;
         pair<long long ,long long > *sH=H+start;
         
         cilk_for(long long j=0;j<size;j++){
@@ -95,7 +95,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
 
 
         }
-        int a=0;
+        //int a=0;
         cilk_for(long long j=0;j<size;j++){
             pair<long long ,long long > swp=sH[j];
             long long i=swp.first;
@@ -106,17 +106,14 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
             if(fiter!=R.end() and fiter->second==i and fhiter!=R.end() and fhiter->second==i){
                 swap(A[hi],A[i]);
                 sH[j].first=-1;
-                a++;
+                //a++;
             }
 
 
         }
-        std::cout<<a<<std::endl;
+        //std::cout<<a<<std::endl;
         R.clear();
-        cilk_for(long long j=0;j<size;j++){
-            if(sH[j].first!=-1)
-                std::cout<<j<<endl;
-        }
+        
         auto pred=[&](pair<long long ,long long > x)->bool{return x.first!=-1;};
         long long failednum=sequence::filter(sH,filter_res,size,pred);
         std::cout<<failednum<<std::endl;
