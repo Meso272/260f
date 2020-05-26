@@ -116,7 +116,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         
         auto pred=[&](pair<long long ,long long > x)->bool{return x.first!=-1;};
         long long failednum=sequence::filter(sH,filter_res,size,pred);
-        std::cout<<failednum<<std::endl;
+        //std::cout<<failednum<<std::endl;
         rest_swaps=rest_swaps-size+failednum;
         cilk_for(long long j=0;j<failednum;j++){
             sH[j]=filter_res[j];
