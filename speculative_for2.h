@@ -23,7 +23,7 @@
 #include "parallel.h"
 #include "utils.h"
 #include "sequence.h"
-//#include "gettime.h"
+#include "gettime.h"
 #include <iostream>
 using namespace std;
 
