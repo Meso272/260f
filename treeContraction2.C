@@ -202,7 +202,7 @@ int main(int argc, char* argv[]) {
     free(IDs);
     free(newIDs);
 
-    // for(intT i=0;i<n;i++)cout<<nodes[i]<<" ";cout<<endl;
+     for(intT i=0;i<n;i++)cout<<nodes[i]<<" ";cout<<endl;
     // for(intT i=n;i<2*n-1;i++)cout<<"("<<i<<","<<internalO[i].parent<<","<<internalO[i].leftChild<<","<<internalO[i].rightChild<<") ";cout<<endl;
 
     timeTreeContraction(nodes, internalO, n, rounds, ratio);
