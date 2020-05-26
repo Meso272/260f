@@ -78,7 +78,7 @@ struct contractStep {
 
   bool commit(intT i) {
     intT parent = nodes[i];
-    if(internal[parent].parent <= -n-1) {
+    if(parent <= -n-1) {
       parent=-(parent+1+n);
       //parent is root, don't compete with other leaves in future rounds
       
