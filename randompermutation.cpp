@@ -27,7 +27,17 @@ using HashT      = MAPNAME<K, V EXTRAARGS>;
 
 using hash_t     = HashT<int64_t, int64_t>;
 using str_hash_t = HashT<const char *, int64_t>;
-
+<template class intT>
+inline intT hashI(intT a)
+{
+   a = (a+0x7ed55d16) + (a<<12);
+   a = (a^0xc761c23c) ^ (a>>19);
+   a = (a+0x165667b1) + (a<<5);
+   a = (a+0xd3a2646c) ^ (a<<9);
+   a = (a+0xfd7046c5) + (a<<3);
+   a = (a^0xb55a4f09) ^ (a>>16);
+   return a;
+}
 int threshold=4096;
 void PKS(long long * A, pair<long long,long long> * H, long long n){
     hash_t R;
@@ -148,7 +158,7 @@ int main(int argc,char ** argv){
     for(int i=0;i<total_times;i++){
         cilk_for(long long j=0;j<n;j++) {
             A[j]=j;
-            H[j]=make_pair(j,(j+55)%n);
+            H[j]=make_pair(j,j+hashI(j)%(n-j));
         }
        
         cilk_for(long long j=0;j<n;j++) mf[j]=0;
