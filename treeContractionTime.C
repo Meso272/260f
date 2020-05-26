@@ -68,23 +68,8 @@ int parallel_main(int argc, char* argv[]) {
   char* filename2 = P.getOptionValue("-parents");
   char* filename3 = P.getOptionValue("-leftChildren");
   char* filename4 = P.getOptionValue("-rightChildren");
-  if(filename1 != NULL && filename2 != NULL && filename3 != NULL 
-     && filename4 != NULL) {
-    _seq<intT> A = readIntArrayFromFile<intT>(filename1);
-    _seq<intT> B = readIntArrayFromFile<intT>(filename2);
-    _seq<intT> C = readIntArrayFromFile<intT>(filename3);
-    _seq<intT> D = readIntArrayFromFile<intT>(filename4);
-    intT n = A.n;
-    intT* nodes = A.A;
-    internalNode* internal = newA(internalNode,n-1);
-    parallel_for(intT i=0;i<n-1;i++) {
-      internal[i].parent = B.A[i];
-      internal[i].leftChild = C.A[i];
-      internal[i].rightChild = D.A[i];
-    }
-    B.del(); C.del(); D.del();
-    timeTreeContraction(nodes, internal - n, n, rounds, ratio);
-    free(nodes); free(internal);
+  if(0) {
+   1;
   } else {
     intT n = atoi(P.getArgument(0));
     intT* nodes = newA(intT,n);
