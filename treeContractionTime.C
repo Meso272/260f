@@ -27,7 +27,7 @@
 //#include "IO.h"
 #include "parseCommandLine.h"
 #include "treeContraction.h"
-
+#include "sequence.h"
 using namespace std;
 //using namespace benchIO;
 
