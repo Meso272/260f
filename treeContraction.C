@@ -108,3 +108,7 @@ void treeContraction(intT* nodes, internalNode* internal, intT n, intT r) {
   speculative_for1(cStep, 0, n, (r != -1) ? r : 50, 0);
   free(R);
 }
+
+int main(){
+  return 0;
+}
