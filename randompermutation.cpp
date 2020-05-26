@@ -109,8 +109,8 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
             hash_t::iterator fiter=R.find(i);
             hash_t::iterator fhiter=R.find(hi);
             if(fiter!=R.end() and fiter->second==i and fhiter!=R.end() and fhiter->second==i){
-                
-                swap(A[hi],A[i]);
+                if(hi!=i)
+                    swap(A[hi],A[i]);
                 sH[j].first=-1;
                 //a++;
             }
