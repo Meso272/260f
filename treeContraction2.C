@@ -45,7 +45,7 @@ struct contractStep {
     intT left = internal[parent].leftChild;
     if(grandparent == -1) { 
       //make sure you don't compete with other leaves anymore
-      internal[parent].parent=-n-1;
+      nodes[i]=-n-1-parent;
       return 1; 
     }
     
@@ -72,14 +72,14 @@ struct contractStep {
       if(rightU < i || leftU < i) return 1;
     }
 
-    internal[parent].parent=-grandparent-1; //winner
+    nodes[i]=-parent-1; //winner
     return 1;
   }
 
   bool commit(intT i) {
     intT parent = nodes[i];
-    if(internal[parent].parent == -n-1) {
-     
+    if(internal[parent].parent <= -n-1) {
+      parent=-(parent+1+n);
       //parent is root, don't compete with other leaves in future rounds
       
       intT right = internal[parent].rightChild;
@@ -87,9 +87,9 @@ struct contractStep {
       if(i == right) internal[parent].rightChild = INT_T_MAX;
       else internal[parent].leftChild = INT_T_MAX;
       return 1;
-    } else if(internal[parent].parent<0) { 
-      
-      intT grandparent = -(internal[parent].parent+1);
+    } else if(parent<0) { 
+      parent=-(parent+1);
+      intT grandparent = internal[parent].parent;
       //sibling should shortcut to grandparent
       intT right = internal[parent].rightChild;
       intT left = internal[parent].leftChild;
