@@ -50,9 +50,9 @@ struct listRankingStep {
 
   bool commit (intT i, intT loc) {
     if(nodes[i].next<0 or nodes[i].prev<0){ //local min 
-      intT next = -nodes[i].next, 
+      intT next = -nodes[i].next,intT prev=nodes[i].prev; 
       if (next==0)
-          prev = -nodes[i].prev;
+        prev = -prev;
       if(next != n) nodes[next].prev = prev;
       if(prev != n) nodes[prev].next = next;
       //R[loc] = 0;
