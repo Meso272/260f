@@ -170,8 +170,8 @@ int main(int argc,char ** argv){
     for(int i=0;i<total_times;i++){
         cilk_for(long long j=0;j<n;j++) {
             A[j]=j;
-            H[j]=make_pair(j,j+hashI<long long >(j)%(n-j));
-            //H[j]=make_pair(j,(j+8000)%n);
+           // H[j]=make_pair(j,j+hashI<long long >(j)%(n-j));
+            H[j]=make_pair(j,(j+8000)%n);
 
         }
        
