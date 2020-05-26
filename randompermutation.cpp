@@ -27,7 +27,8 @@ using HashT      = MAPNAME<K, V EXTRAARGS>;
 
 using hash_t     = HashT<int64_t, int64_t>;
 using str_hash_t = HashT<const char *, int64_t>;
-<template class intT>
+
+template <class intT>
 inline intT hashI(intT a)
 {
    a = (a+0x7ed55d16) + (a<<12);
