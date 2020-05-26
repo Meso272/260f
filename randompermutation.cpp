@@ -8,6 +8,7 @@
 #include "sequence.h"
 #include<utility>
 #include<mutex>
+#include<cassert>
 //#include "parallel.h"
 //#include "utils.h"
 #include "math.h"
@@ -63,16 +64,18 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         }
        
         long long start=rest_swaps-size;
-        std::cout<<start<<std::endl;
-        std::cout<<size<<std::endl;
+        //std::cout<<start<<std::endl;
+        //std::cout<<size<<std::endl;
         pair<long long ,long long > *sH=H+start;
         
         cilk_for(long long j=0;j<size;j++){
-            
+            assert(start+j<n);
 
             pair<long long ,long long > swp=sH[j];
             long long i=swp.first;
             long long hi=swp.second;
+            assert(hi>=0&&hi<n);
+            assert(i>=0&&i<n);
             hash_t::iterator fiter=R.find(i);
             if (fiter!=R.end()){
                 long long ri=fiter->second;
@@ -97,13 +100,16 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         }
         //int a=0;
         cilk_for(long long j=0;j<size;j++){
+            assert(start+j<n);
             pair<long long ,long long > swp=sH[j];
             long long i=swp.first;
             long long hi=swp.second;
-            
+            assert(hi>=0&&hi<n);
+            assert(i>=0&&i<n);
             hash_t::iterator fiter=R.find(i);
             hash_t::iterator fhiter=R.find(hi);
             if(fiter!=R.end() and fiter->second==i and fhiter!=R.end() and fhiter->second==i){
+                
                 swap(A[hi],A[i]);
                 sH[j].first=-1;
                 //a++;
