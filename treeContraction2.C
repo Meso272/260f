@@ -45,7 +45,7 @@ struct contractStep {
     intT left = internal[parent].leftChild;
     if(grandparent == -1) { 
       //make sure you don't compete with other leaves anymore
-      nodes[i]=-n-1-parent;
+      nodes[i]=parent-n;
       return 1; 
     }
     
@@ -72,23 +72,14 @@ struct contractStep {
       if(rightU < i || leftU < i) return 1;
     }
 
-    nodes[i]=-parent-1; //winner
+    nodes[i]=-parent; //winner
     return 1;
   }
 
   bool commit(intT i) {
     intT parent = nodes[i];
-    if(parent <= -n-1) {
-      parent=-(parent+1+n);
-      //parent is root, don't compete with other leaves in future rounds
-      
-      intT right = internal[parent].rightChild;
-      intT left = internal[parent].leftChild;
-      if(i == right) internal[parent].rightChild = INT_T_MAX;
-      else internal[parent].leftChild = INT_T_MAX;
-      return 1;
-    } else if(parent<0) { 
-      parent=-(parent+1);
+    if(parent < 0) {
+      parent=-parent;
       intT grandparent = internal[parent].parent;
       //sibling should shortcut to grandparent
       intT right = internal[parent].rightChild;
@@ -99,6 +90,18 @@ struct contractStep {
       if(internal[grandparent].rightChild == parent) 
   internal[grandparent].rightChild = sibling;
       else internal[grandparent].leftChild = sibling;
+      return 1;
+    } 
+    else if(parent<n) { 
+      
+
+      parent=parent+n;
+      //parent is root, don't compete with other leaves in future rounds
+      
+      intT right = internal[parent].rightChild;
+      intT left = internal[parent].leftChild;
+      if(i == right) internal[parent].rightChild = INT_T_MAX;
+      else internal[parent].leftChild = INT_T_MAX;
       return 1;
     }
 
@@ -202,7 +205,7 @@ int main(int argc, char* argv[]) {
     free(IDs);
     free(newIDs);
 
-     for(intT i=0;i<n;i++)cout<<nodes[i]<<" ";cout<<endl;
+    //for(intT i=0;i<n;i++)cout<<nodes[i]<<" ";cout<<endl;
     // for(intT i=n;i<2*n-1;i++)cout<<"("<<i<<","<<internalO[i].parent<<","<<internalO[i].leftChild<<","<<internalO[i].rightChild<<") ";cout<<endl;
 
     timeTreeContraction(nodes, internalO, n, rounds, ratio);
