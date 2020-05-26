@@ -23,7 +23,7 @@
 #include "parallel.h"
 #include "utils.h"
 #include "sequence.h"
-#include "gettime.h"
+//#include "gettime.h"
 #include <iostream>
 using namespace std;
 
@@ -67,7 +67,7 @@ intT speculative_for(S step, intT s, intT e, int granularity,
   int prevdone = 0;
 
   while (numberDone < e) {
-	startTime();
+	//startTime();
     if (round++ > maxTries) {
       cout << "speculative_for: too many iterations, increase maxTries"<< endl;
       abort();
@@ -101,7 +101,7 @@ intT speculative_for(S step, intT s, intT e, int granularity,
     swap(I, Ihold);
 	prevdone = numberDone;
     numberDone += size - numberKeep;
-    nextTimeN();
+    //nextTimeN();
 	//cout << round << ' ' << numberDone << ' ' << numberDone-prevdone << ' ' << totalProcessed << endl;
 
     // adjust round size based on number of failed attempts

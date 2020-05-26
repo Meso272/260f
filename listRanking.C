@@ -27,7 +27,7 @@
 #include "speculative_for2.h"
 #include "listRanking.h"
 #include "randPerm.C"
-#include "gettime.h"
+#include "get_time.h"
 #include "parseCommandLine.h"
 using namespace std;
 
@@ -69,17 +69,18 @@ void timeListRanking(node* A, intT n, int rounds, intT ratio) {
     B[i].next = A[i].next;
   }
   listRanking(B, n, ratio);
- 
+  double time=0;
   for (int i=0; i < rounds; i++) {
     parallel_for(intT i=0;i<n;i++) {
       B[i].prev = A[i].prev;
       B[i].next = A[i].next;
     }
-    startTime();
+    timer t; t.start();
     listRanking(B, n, ratio);
-    nextTimeN();
-  }
-  std::cout << endl;
+    t.stop();
+    time+=t.get_total()/double(rounds);
+    }
+  std::cout <<time<< endl;
   free(B);
 }
 
@@ -98,9 +99,9 @@ int main(int argc, char* argv[]) {
   intT* A = newA(intT,n);
   parallel_for(intT i=0;i<n;i++) A[i] = i;
   randPerm(A, n, -1);
-
+  std::cout<<rounds<<endl;
   bool* processed = newArray(n,(bool)0);
-
+  
   //get rid of cycles
   for(intT i=0;i<n;i++) {
     if(!processed[i]) {
