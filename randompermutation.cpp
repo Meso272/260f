@@ -49,7 +49,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
     if (size<threshold)
         size=threshold;
     pair<long long,long long> *filter_res=new pair<long long,long long> [size];
-    //cilk_for(int i=0;i<)
+    cilk_for(long long  i=0;i<size;i++) filter_res[i]=0;
     while (rest_swaps>0){
         if(rest_swaps<=threshold){
                 for(long long  i=rest_swaps;i>=0;i--){
@@ -63,8 +63,8 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         }
        
         long long start=rest_swaps-size;
-        //std::cout<<start<<std::endl;
-        //std::cout<<size<<std::endl;
+        std::cout<<start<<std::endl;
+        std::cout<<size<<std::endl;
         pair<long long ,long long > *sH=H+start;
         
         cilk_for(long long j=0;j<size;j++){
