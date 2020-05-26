@@ -119,7 +119,7 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         }
         //std::cout<<a<<std::endl;
         R.clear();
-        /*
+        
         auto pred=[&](pair<long long ,long long > x)->bool{return x.first!=-1;};
         long long failednum=sequence::filter(sH,filter_res,size,pred);
         std::cout<<failednum<<std::endl;
@@ -127,8 +127,8 @@ void PKS(long long * A, pair<long long,long long> * H, long long n){
         cilk_for(long long j=0;j<failednum;j++){
             sH[j]=filter_res[j];
         }
-        */
-        rest_swaps=rest_swaps-size;
+        
+        //rest_swaps=rest_swaps-size;
        // break;
 
     }   
@@ -168,7 +168,7 @@ int main(int argc,char ** argv){
         cilk_for(long long j=0;j<n;j++) {
             A[j]=j;
             //H[j]=make_pair(j,j+hashI<long long >(j)%(n-j));
-            H[j]=make_pair(j,j);
+            H[j]=make_pair(j,(j+4)%n);
 
         }
        
