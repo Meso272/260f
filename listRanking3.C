@@ -19,12 +19,12 @@
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//original sfor, r removed, modify prev
+
 #include "parallel.h"
 #include "utils.h"
 #include <iostream>
 #include "sequence.h"
-#include "speculative_for2.h"
+#include "speculative_for3.h"
 #include "listRanking.h"
 #include "randPerm.C"
 #include "get_time.h"
@@ -41,14 +41,14 @@ struct listRankingStep {
     intT next = nodes[i].next, prev = nodes[i].prev;
     if(i < next && i < prev) {
       
-       nodes[i].next=-next-1;
+       return 0;
        
 
     }; //check if local min
     return 1; }
 
   bool commit (intT i, intT loc) {
-    if(nodes[i].next<0 ){ //local min 
+   // if(nodes[i].next<0 ){ //local min 
       intT next = -(nodes[i].next+1);
       intT prev = nodes[i].prev; 
       
@@ -57,8 +57,8 @@ struct listRankingStep {
       //R[loc] = 0;
       //nodes[i].next=0;
       //nodes[i].prev=0;
-      return 1; } 
-    else return 0; //lost 
+      return 1; //} 
+    //else return 0; //lost 
   }};
 
 void listRanking(node *A, intT n, intT r = -1) {
