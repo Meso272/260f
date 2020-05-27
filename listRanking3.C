@@ -44,12 +44,12 @@ struct listRankingStep {
        return 0;
        
 
-    }; //check if local min
+    } //check if local min
     return 1; }
 
   bool commit (intT i, intT loc) {
    // if(nodes[i].next<0 ){ //local min 
-      intT next = -(nodes[i].next+1);
+      intT next = nodes[i].next;
       intT prev = nodes[i].prev; 
       
       if(next != n) nodes[next].prev = prev;
