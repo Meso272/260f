@@ -82,11 +82,11 @@ intT speculative_for1(S step, intT s, intT e, int granularity,
     }
 
     if (hasState) {
-      auto pred =[&](int i){return !state[i].commit(I[i], i);};
+      auto pred =[&](int i){return !state[i].commit(I[i]);};
       numberKeep = sequence::in_place_filter(I, size, pred);
   
     } else {
-       auto pred =[&](int i){return !step.commit(I[i], i);};
+       auto pred =[&](int i){return !step.commit(I[i]);};
       numberKeep = sequence::in_place_filter(I,  size, pred);
     }
 
