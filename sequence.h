@@ -647,7 +647,7 @@ namespace sequence {
 
   }
   template <class ET, class intT, class PRED>
-  intT in_place_filter(ET* In, intT n, PRED p,bool recur) {
+  intT in_place_filter(ET* In, intT n, PRED p,bool recur=false) {
     
     if (n < _F_BSIZE)
       return filterSerial(In, In, n, p);
