@@ -87,17 +87,18 @@ intT speculative_for(S step, intT s, intT e, int granularity,
 	step.reserve(I[i], i);
       } 
     }
-    auto pred=NULL;
+    
     if (hasState) {
-      pred =[&](int i){return state[i].commit(I[i], i);};
-     
+      auto pred =[&](int i){return state[i].commit(I[i], i);};
+      numberKeep = sequence::filter(I, Ihold, size, pred);
 	
     } else {
-      pred =[&](int i){return step.commit(I[i], i);};
+       auto pred =[&](int i){return step.commit(I[i], i);};
+      numberKeep = sequence::filter(I, Ihold, size, pred);
     }
 	
     // keep iterations that failed for next round
-    numberKeep = sequence::filter(I, Ihold, size, pred);
+    
     swap(I, Ihold);
 	   prevdone = numberDone;
     numberDone += size - numberKeep;
