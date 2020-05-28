@@ -81,6 +81,8 @@ struct contractStep {
     if(parent < 0) {
       parent=-parent;
       intT grandparent = internal[parent].parent;
+      if (grandparent<0)
+        cout<<"nmsl"<<endl;
       //sibling should shortcut to grandparent
       intT right = internal[parent].rightChild;
       intT left = internal[parent].leftChild;
