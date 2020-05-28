@@ -1,3 +1,4 @@
+
 // This code is part of the Problem Based Benchmark Suite (PBBS)
 // Copyright (c) 2011 Guy Blelloch and the PBBS team
 //
@@ -19,17 +20,14 @@
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// changed logic of keep[] from sfor2
+
 #include "parallel.h"
 #include "utils.h"
 #include "sequence.h"
-//#include "gettime.h"
-#include <iostream>
-using namespace std;
 
-struct reservation {
+struct reservation1 {
   intT r;
-  reservation() : r(INT_T_MAX) {}
+  reservation1() : r(INT_T_MAX) {}
   void reserve(intT i) { utils::writeMin(&r, i); }
   bool reserved() { return (r < INT_T_MAX);}
   void reset() {r = INT_T_MAX;}
@@ -40,10 +38,10 @@ struct reservation {
   }
 };
 
-inline void reserveLoc(intT& x, intT i) {utils::writeMin(&x,i);}
+inline void reserveLoc1(intT& x, intT i) {utils::writeMin(&x,i);}
 
 template <class S>
-intT speculative_for(S step, intT s, intT e, int granularity,
+intT speculative_for1(S step, intT s, intT e, int granularity, 
 		     bool hasState=1, int maxTries=-1) {
   if (maxTries < 0) maxTries = 100 + 200*granularity;
   intT maxRoundSize = (e-s)/granularity+1;
@@ -62,58 +60,49 @@ intT speculative_for(S step, intT s, intT e, int granularity,
   intT numberDone = s; // number of iterations done
   intT numberKeep = 0; // number of iterations to carry to next round
   intT totalProcessed = 0; // number done including wasteds tries
-  //cout << sizeof(state) << endl;
   
-  int prevdone = 0;
-
   while (numberDone < e) {
-	//startTime();
     if (round++ > maxTries) {
       cout << "speculative_for: too many iterations, increase maxTries"<< endl;
       abort();
     }
     intT size = min(currentRoundSize, e - numberDone);
     totalProcessed += size;
-	//cout << round << ' ' << numberDone << ' ' << numberDone-prevdone << ' ' << totalProcessed << ' ' << size << endl;
 
     if (hasState) {
-      parallel_for (intT i =0; i < size; i++) {/////////////////
+      parallel_for (intT i =0; i < size; i++) {
 	if (i >= numberKeep) I[i] = numberDone + i;
-	state[i].reserve(I[i], i);
+	state[i].reserve(I[i]);
       } 
     } else {
       parallel_for (intT i =0; i < size; i++) {
 	if (i >= numberKeep) I[i] = numberDone + i;
-	step.reserve(I[i], i);
+	 step.reserve(I[i]);
       } 
     }
-    
+
     if (hasState) {
       auto pred =[&](int i){return !state[i].commit(I[i], i);};
       numberKeep = sequence::in_place_filter(I, size, pred);
-	
+  
     } else {
        auto pred =[&](int i){return !step.commit(I[i], i);};
       numberKeep = sequence::in_place_filter(I,  size, pred);
     }
-	
-    // keep iterations that failed for next round
-    
-    //swap(I, Ihold);
-	   prevdone = numberDone;
-    numberDone += size - numberKeep;
-    //nextTimeN();
-	//cout << round << ' ' << numberDone << ' ' << numberDone-prevdone << ' ' << totalProcessed << endl;
 
+    // keep iterations that failed for next round
+    //numberKeep = sequence::pack(I, Ihold, keep, size);
+    //swap(I, Ihold);
+    numberDone += size - numberKeep;
+    
     // adjust round size based on number of failed attempts
     if (float(numberKeep)/float(size) > .2) 
       currentRoundSize = max(currentRoundSize/2, 
 			     max(maxRoundSize/64 + 1, numberKeep));
     else if (float(numberKeep)/float(size) < .1) 
       currentRoundSize = min(currentRoundSize * 2, maxRoundSize);
-    //cout << size << " : " << numberKeep << " : " << numberDone << endl;
   }
-  free(I); //free(Ihold); //free(keep); 
+  free(I); //free(Ihold);// free(keep); 
   if(hasState) free(state);
   return totalProcessed;
 }
