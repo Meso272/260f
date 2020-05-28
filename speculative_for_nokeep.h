@@ -88,7 +88,8 @@ intT speculative_for1(S step, intT s, intT e, int granularity,
     } else {
        auto pred =[&](int i){return !step.commit(I[i]);};
       numberKeep = sequence::in_place_filter(I,  size, pred);
-    }
+    } 
+    std::cout<<numberKeep<<std::endl;
 
     // keep iterations that failed for next round
     //numberKeep = sequence::pack(I, Ihold, keep, size);
