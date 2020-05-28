@@ -68,7 +68,7 @@ intT speculative_for1(S step, intT s, intT e, int granularity,
     }
     intT size = min(currentRoundSize, e - numberDone);
     totalProcessed += size;
-
+     std::cout<<"a"<<std::endl;
     if (hasState) {
       parallel_for (intT i =0; i < size; i++) {
 	if (i >= numberKeep) I[i] = numberDone + i;
@@ -80,7 +80,7 @@ intT speculative_for1(S step, intT s, intT e, int granularity,
 	 step.reserve(I[i]);
       } 
     }
-
+    std::cout<<"b"<<std::endl;
     if (hasState) {
       auto pred =[&](int i){return !state[i].commit(I[i]);};
       numberKeep = sequence::in_place_filter(I, size, pred);
