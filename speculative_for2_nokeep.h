@@ -64,7 +64,7 @@ intT speculative_for(S step, intT s, intT e, int granularity,
   intT totalProcessed = 0; // number done including wasteds tries
   //cout << sizeof(state) << endl;
   
-  int prevdone = 0;
+  //int prevdone = 0;
 
   while (numberDone < e) {
 	//startTime();
@@ -100,7 +100,7 @@ intT speculative_for(S step, intT s, intT e, int granularity,
     // keep iterations that failed for next round
     
     //swap(I, Ihold);
-	   prevdone = numberDone;
+	   //prevdone = numberDone;
     numberDone += size - numberKeep;
     //nextTimeN();
 	//cout << round << ' ' << numberDone << ' ' << numberDone-prevdone << ' ' << totalProcessed << endl;
