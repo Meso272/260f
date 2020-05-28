@@ -24,7 +24,7 @@
 #include "utils.h"
 #include <iostream>
 #include "sequence.h"
-#include "speculative_for3.h"
+#include "speculative_for1.h"
 #include "treeContraction.h"
 #include "get_time.h"
 #include "parseCommandLine.h"
