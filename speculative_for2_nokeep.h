@@ -87,7 +87,7 @@ intT speculative_for(S step, intT s, intT e, int granularity,
 	step.reserve(I[i], i);
       } 
     }
-    auto pred;
+    auto pred=NULL;
     if (hasState) {
       pred =[&](int i){return state[i].commit(I[i], i);};
      
